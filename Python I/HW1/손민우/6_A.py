@@ -47,10 +47,13 @@ def f4(n):
 
 def f5(data):
 	for each_data in data:
-		summ = 0
-		for i in each_data:
-			summ += i
-		print(summ)
+		if not each_data:
+			pass
+		else:
+			summ = 0
+			for i in each_data:
+				summ += i
+			print(summ)
 
 
 def f6(data):
@@ -60,26 +63,44 @@ def f6(data):
 
 def f7(data):
 	for each_data in data:
-		summ = 0
-		for i in each_data:
-			summ += i
-		print(summ)
+		if not each_data:
+			pass
+		else:
+			summ = 0
+			for i in each_data:
+				summ += i
+			print(summ)
 
 
 def f8(data):
 	summ = 0
+	l = len(data)
+	check = 0
 	for each_data in data:
+		if not each_data:
+			check += 1
 		for i in each_data:
 			summ += i
-	print(summ)
+
+	if l == check:
+		return
+	else:
+		return summ
 
 
 def f9(data):
 	ans = 1
+	l = len(data)
+	check = 0
 	for real in data:
+		if not real:
+			check += 1
 		for i in real:
 			ans *= i
-	return ans
+	if l == check:
+		return
+	else:
+		return ans
 
 
 def f10(data):
@@ -92,16 +113,16 @@ def f10(data):
 
 
 def f11(matrix1, matrix2):
-	col = len(matrix1)
-	row = len(matrix1[0])
+	row = len(matrix1)
+	col = len(matrix1[0])
 	ans = matrix1
-	for i in range(col):
-		for j in range(row):
+	for i in range(row):
+		for j in range(col):
 			ans[i][j] = matrix1[i][j] + matrix2[i][j]
 	return ans
 
 
-def f12(mat1, mat2): #TODO:: fix
+def f12(mat1, mat2):
 	ans = [len(mat2[0]) * [0] for i in range(len(mat1))]
 
 	for i in range(len(ans)):
@@ -114,6 +135,8 @@ def f12(mat1, mat2): #TODO:: fix
 def f13(matrix):
 	ans = True
 	col = len(matrix)
+	if col == 1 and bool(matrix[0]) == False:
+		return False
 	for i in range(col):
 		for j in range(col):
 			if i == j:
@@ -140,11 +163,3 @@ def f14(rows, cols):
 				cnt += 1
 			ans[j][i] = cnt
 	return ans
-
-if __name__ == '__main__':
-	data1 = [[1,2,3],[4,5,6],[7,8,9]]
-	data2 = [[1,2,3],[4,5,6]]
-	data3 = [[1],[2],[3],[4]]
-	#f12([[1,2,3],[4,5,6]], [[-1,-1],[-1,-1],[-1,-1]])
-	# f12([[4,3,2,1]],[[1],[2],[3],[4]])
-	f12([[1,0],[0,1]],[[1,0],[0,1]])
