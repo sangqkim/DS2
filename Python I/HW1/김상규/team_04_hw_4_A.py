@@ -188,8 +188,12 @@ def f24(list):
 
 
 def f25(n):
-    s = str(n)
-    return int(s[0])
+    i = 1
+    while True:
+        if n // i < 10:
+            return n // i
+        else:
+            i *= 10
 
 
 def f26(list):
