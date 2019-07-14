@@ -43,15 +43,14 @@ def f5(lst):
 			print(lst[0] * 3)
 
 
-def f6(lst):  # TODO
+def f6(lst):
 	if not lst:
-		return
+		return []
 	else:
 		if type(lst[0]) != list:
-			f6(lst[1:])
-			return lst[0]
+			return lst[0:1] + f6(lst[1:])
 		else:
-			f6(lst[0])
+			return f6(lst[0]) + f6(lst[1:])
 
 
 def f7(n):
@@ -140,15 +139,20 @@ def f16(lst):
 			return f16(lst[1:])
 
 
-if __name__ == '__main__':
-	dd =  f16([1,2,3,4,5])
-	d2 = 3
 
 def f17(lst):
 	if len(lst) == 2:
 		return lst[0]
 	else:
 		return f17(lst[1:])
+
+
+def f18(a, b):
+	if b == 0:
+		return a
+	else:
+		return f18(b, a%b)
+
 
 
 def f19(l1, l2):
@@ -161,3 +165,19 @@ def f19(l1, l2):
 		return l1[0:1] + f19(l1[1:], l2)
 	else:
 		return l2[0:1] + f19(l1, l2[1:])
+
+
+def f20(lst):
+	if len(lst) == 0 or len(lst) == 1:
+		return lst[:len(lst)]
+
+	halfway = len(lst) // 2
+
+	list1 = lst[0:halfway]
+	list2 = lst[halfway:]
+
+	newlist1 = f20(list1)
+	newlist2 = f20(list2)
+
+	newlist = f19(newlist1, newlist2)
+	return newlist
