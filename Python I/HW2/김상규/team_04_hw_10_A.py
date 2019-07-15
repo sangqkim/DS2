@@ -45,11 +45,13 @@ def f5(list):
       
 
 def f6(lst):
-    result = []
-    if type(lst[0]) == list:
-        return lst[0]
+    if len(lst) == 0:
+        return []
     else:
-        result.append(return[lst[0]])
+        if type(lst[0]) == list:
+            return f6(lst[0])
+        else:
+            return lst[0:] + f6(lst[0])
          
     
     
@@ -151,6 +153,14 @@ def f15(list):
 #    else:
 #        if list[0] %2 != 0:
 #            return f16(list[1:])
+def f16(list):
+    if len(list) == 0:
+        return list
+    else:        
+        if list[0] %2 != 0:
+            return list[0:1]+f16(list[1:])
+        else:
+            return f16(list[1:])
 
     
 def f17(list):
