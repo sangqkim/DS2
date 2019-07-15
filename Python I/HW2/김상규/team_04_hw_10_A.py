@@ -44,11 +44,12 @@ def f5(list):
         print(list[0])
       
 
-#def f6(lst):
-#    if type(lst) != list:
-#        return lst[0]
-#    else: 
-#        return f6(lst[1:])
+def f6(lst):
+    result = []
+    if type(lst[0]) == list:
+        return lst[0]
+    else:
+        result.append(return[lst[0]])
          
     
     
