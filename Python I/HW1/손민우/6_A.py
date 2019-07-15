@@ -14,7 +14,7 @@ def f2(n):
 		print()
 
 
-def f3(n):
+def f3(n): #TODO :: Quiz
 	ans = 1
 	for line in range(1, n + 1):
 		for i in range(line):
@@ -82,10 +82,7 @@ def f8(data):
 		for i in each_data:
 			summ += i
 
-	if l == check:
-		return
-	else:
-		return summ
+	return summ
 
 
 def f9(data):
@@ -122,16 +119,25 @@ def f11(matrix1, matrix2):
 	return ans
 
 
+# def f12(mat1, mat2): # TODO:: Quiz
+# 	ans = [len(mat2[0]) * [0] for i in range(len(mat1))]
+#
+# 	for i in range(len(ans)):
+# 		for j in range(len(ans[i])):
+# 			for k in range(len(mat1[i])):
+# 				ans[i][j] += mat1[i][k] * mat2[k][j]
+# 	return ans
 def f12(mat1, mat2):
-	ans = [len(mat2[0]) * [0] for i in range(len(mat1))]
-
-	for i in range(len(ans)):
-		for j in range(len(ans[i])):
-			for k in range(len(mat1[i])):
-				ans[i][j] += mat1[i][k] * mat2[k][j]
-	return ans
-
-
+	answer = []
+	for i in range(len(mat1)):
+		small = []
+		for j in range(len(mat2[0])):
+			sum = 0
+			for k in range(len(mat1[0])):
+				sum += mat1[i][k] * mat2[k][j]
+			small.append(sum)
+		answer.append(small)
+	return answer
 def f13(matrix):
 	ans = True
 	col = len(matrix)
