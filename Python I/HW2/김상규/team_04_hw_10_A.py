@@ -48,16 +48,10 @@ def f6(lst):
     if len(lst) == 0:
         return []
     else:
-        if type(lst[0]) == list:
-            return f6(lst[0])
+        if type(lst[0]) != list:
+            return lst[0:1] + f6(lst[1:])
         else:
-            return lst[0:] + f6(lst[0])
-         
-    
-    
-    
-    
-    
+            return f6(lst[0]) + f6(lst[1:])   
     
     
     
