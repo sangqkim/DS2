@@ -63,12 +63,45 @@ def make_Dict_number(lst):
         for i in range(1, len(lst)):
             if lst[0] == lst[i]:
                 dic[lst[0]] = dic[lst[0]] + 1
+                break
         lst = lst[1:]
     return dic
-            
-        
-        
+                    
 #def most_Frequent(lst):   
-        
-        
+#    element = set(lst)
+#    dic = make_Dict_number(lst)
+#    max = 0
+#    max_key = 0
+#    for i in element:
+#        if max < dic[i]:
+#            max = dic[i]
+#            max_key = i
+#    return max_key
+
+def most_Frequent(lst):   
+    element = set(lst)
+    dic = make_Dict_number(lst)
+    max = 0
+    max_key = 0
+    for i in element:
+        if max < dic.get(i):
+            max = dic.get(i)
+            max_key = i
+    return max_key
+
+
+            
+# 7
+def histogram(d):
+    values = list(d.values())
+    dic = {}
+    for i in set(values):
+        dic[i] = 1
+    while values:
+        for i in range(1, len(values)):
+            if values[0] == values[i]:
+                dic[values[0]] = dic[values[0]] + 1
+                break
+        values = values[1:]
+    return dic    
     
