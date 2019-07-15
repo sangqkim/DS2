@@ -49,7 +49,7 @@ def sort_repeated(L):
                 result.append(L[0])
         L = L[1:]
 #    print(result)
-    return list(set(result))
+    return sorted(list(set(result)))
 #    print(repeated_num)
     
 
