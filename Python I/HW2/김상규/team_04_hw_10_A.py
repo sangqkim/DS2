@@ -48,16 +48,10 @@ def f6(lst):
     if len(lst) == 0:
         return []
     else:
-        if type(lst[0]) == list:
-            return f6(lst[0])
+        if type(lst[0]) != list:
+            return lst[0:1] + f6(lst[1:])
         else:
-            return lst[0:] + f6(lst[0])
-         
-    
-    
-    
-    
-    
+            return f6(lst[0]) + f6(lst[1:])   
     
     
     
@@ -138,21 +132,7 @@ def f15(list):
         else:
             return f15(list[1:])
 
-#def f16(list):
-#    if len(list) == 0:
-#        return 
-#    else:        
-#        if list[0] %2 != 0:
-#            return f16(list[1:])
-#        else:
-#            return f16(list[1:])
 
-#def f16(list):
-#    if len(list) == 0:
-#        return list
-#    else:
-#        if list[0] %2 != 0:
-#            return f16(list[1:])
 def f16(list):
     if len(list) == 0:
         return list
@@ -170,28 +150,57 @@ def f17(list):
         return f17(list[1:])
     
     
-#def f18(a, b):
-#    if a>=b:
-#        n = b
-        
+def f18(a, b):
+	if b == 0:
+		return a
+	else:
+		return f18(b, a%b)        
     
     
 
+#def f19(list1, list2):
+#    if len(list1) == 0 or len(list2) == 0:
+#        if len(list1) == 0:
+#            return list2
+#        if len(list2) == 0:
+#            return list2
+#    if list1[0] < list2[0]:
+#        return list1[0:1] +f19(list1[1:], list2)
+#    else:
+#        return list2[0:1] + f19(list1, list2[1:])
+        
 def f19(list1, list2):
     if len(list1) == 0 or len(list2) == 0:
         if len(list1) == 0:
             return list2
         if len(list2) == 0:
-            return list2
+            return list1
     if list1[0] < list2[0]:
-        return list1[0:1] +f19(list1[1:], list2)
+        return list1[0:1] + f19(list1[1:], list2)
     else:
         return list2[0:1] + f19(list1, list2[1:])
+  
+
+def f20(lst):
+	if len(lst) == 0 or len(lst) == 1:
+
+		return lst[:len(lst)]
+
+
+	halfway = len(lst) // 2
+
+
+	list1 = lst[0:halfway]
+	list2 = lst[halfway:]
+
+	newlist1 = f20(list1)
+	newlist2 = f20(list2)
+
+	newlist = f19(newlist1, newlist2)
+
+	return newlist
+    
+    
     
 
-def f20(list):
-    
-    
-    
-
-    
+     
