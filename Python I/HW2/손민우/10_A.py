@@ -139,7 +139,6 @@ def f16(lst):
 			return f16(lst[1:])
 
 
-
 def f17(lst):
 	if len(lst) == 2:
 		return lst[0]
@@ -152,7 +151,6 @@ def f18(a, b):
 		return a
 	else:
 		return f18(b, a%b)
-
 
 
 def f19(l1, l2):
@@ -181,3 +179,10 @@ def f20(lst):
 
 	newlist = f19(newlist1, newlist2)
 	return newlist
+
+
+def quiz(lst):
+	if len(lst) == 0:
+		return []
+	else:
+		return lst[-1:] + quiz(lst[:-1])

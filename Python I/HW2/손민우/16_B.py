@@ -53,6 +53,46 @@ def sort_repeated(lst):
 	return sorted(answer_set)
 
 ### 6 처음 값만 유효하고 뒤에 중복된 값이 나오면 무시
+def make_Dict_number(lst):
+	ans = {}
+	for i in lst:
+		if i in ans:
+			ans[i] += 1
+		else:
+			ans[i] = 1
+	return ans
+
+def mostFrequent(lst):
+	ans = {}
+	for i in lst:
+		if i in ans:
+			ans[i] += 1
+		else:
+			ans[i] = 1
+	max = 0
+	max_num = None
+	for i in ans.keys():
+		if max < ans[i]:
+			max = ans[i]
+			max_num = i
+	return max_num
+
+
+def mostFrequent_get(lst):
+	ans = {}
+	for i in lst:
+		if i in ans:
+			ans[i] += 1
+		else:
+			ans[i] = 1
+	max = 0
+	max_num = None
+	for i in ans.keys():
+		if max < ans.get(i):
+			max = ans.get(i)
+			max_num = i
+	return max_num
+
 
 ### 7
 def histogram(s):

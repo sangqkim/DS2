@@ -1,0 +1,81 @@
+class Programmer:
+	pass
+
+kim = Programmer()
+park = Programmer()
+
+
+class Ph:
+	def printHam(self):
+		print("Ham")
+
+x = Ph()
+x.printHam()
+
+class Ph:
+	def __init__(self):
+		self.y = 5
+		self.z = 5
+	def printHam(self):
+		print("Ham")
+	def _inner(self):
+		print("oing")
+
+x= Ph()
+x.printHam()
+print(x.y)
+print(x.z)
+
+class Hero:
+	def __init__(self, name):
+		self.name = name
+		self.health = 100
+
+	def eat(self, food):
+		if food == 'apple':
+			self.health -= 100
+		elif food == 'ham':
+			self.health += 20
+Bob = Hero('Bob')
+print(Bob.name)
+print(Bob.health)
+Bob.eat('ham')
+print(Bob.health)
+
+
+class Service:
+
+	def __init__(self, name):
+		self.name = name
+
+	def sum(self, a, b):
+		result = a + b
+		print("%s님, %s + %s = %s입니다." %(self.name, a, b, result))
+
+pey = Service("홍길동")
+pey.sum(1,1)
+
+
+class BaseClass:
+	def printHam(self):
+		print('han')
+
+class InheritingClass(BaseClass):
+	pass
+
+x = InheritingClass()
+x.printHam()
+
+
+class Foo:
+	def __init__(self):
+		self.health = 100
+
+class SubFoo(Foo):
+	def __init__(self):
+		super().__init__()
+		self.muscle = 200
+
+testobj = SubFoo()
+print(testobj.health)
+print(testobj.muscle)
