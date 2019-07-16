@@ -24,6 +24,7 @@ def f3(lst):
         print(lst[0])
 
 
+
 def f4(lst):
     if len(lst) == 0:
         return
@@ -98,6 +99,7 @@ def f11(lst):
     else:
         return f11(lst[1:])
 
+
 def f12(n):
     if n==0:
         return
@@ -110,6 +112,7 @@ def f13(n):
         return 1
     else:
         return 1+f13(n//10)
+
 
 def f14(lst):
     if not lst:
@@ -162,3 +165,14 @@ def f19(lst1,lst2):
             return lst1[0:1]+ f19(lst1[1:],lst2[0:])
         else:
             return lst2[0:1]+ f19(lst2[1:],lst1[0:])
+
+def f20(lst):
+    if len(lst)<=1 :
+        return lst
+
+    else:
+        mid = int((len(lst)) / 2)
+        left, right = f20(list(lst[:mid])), f20(list(lst[mid:]))
+
+        return f19(left,right)
+
