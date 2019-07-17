@@ -78,7 +78,7 @@ def mostFrequent(lst):
 	return max_num
 
 
-def mostFrequent_get(lst):
+def mostFrequent(lst):
 	ans = {}
 	for i in lst:
 		if i in ans:
