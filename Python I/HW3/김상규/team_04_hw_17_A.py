@@ -101,9 +101,10 @@ print(rectangle.area())
 print("##### 3-2번 문제 #####")
 
 #class Square(Shape):
-#    def __init__(self):
-#        self
-        
+#    def area_Square(self):
+#        return self.x*self.x
+#    
+#square = Square(5)
         
 '''
 __init__ instance가 class를 호출할 때 실행
