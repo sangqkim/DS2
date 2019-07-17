@@ -8,6 +8,8 @@ def f1(lst):
 def f2(n):
 	if n == 1:
 		return 1
+	elif n == 0:
+		return 0
 	else:
 		if n % 2 == 0:
 			return f2(n//2) + 1
