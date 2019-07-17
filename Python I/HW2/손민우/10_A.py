@@ -181,10 +181,3 @@ def f20(lst):
 
 	newlist = f19(newlist1, newlist2)
 	return newlist
-
-
-def quiz(lst):
-	if len(lst) == 0:
-		return []
-	else:
-		return lst[-1:] + quiz(lst[:-1])
