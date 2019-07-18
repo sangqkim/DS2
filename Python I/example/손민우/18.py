@@ -20,3 +20,24 @@ class C(A,B):
 	def c(self):
 		print('I am C')
 
+class A:
+	def foo(self):
+		print('excuting foo')
+
+	@classmethod
+	def class_foo(cls):
+		print('excuting class_foo')
+
+class Employee:
+	empcount = 0
+
+	def __init__(self, name, salary):
+		self.name = name
+		self.salary = salary
+		Employee.empcount += 1
+
+	def displayCOunt(self):
+		print('Total Employee %d' %Employee.empcount)
+
+	def displayEmployee(self):
+		print('Name : ', self.name, ', Salary: ', self.salary)
