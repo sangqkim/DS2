@@ -37,12 +37,93 @@ print(musician)
 
 
 # 8-4
-# 8-5
-# 8-6
-# 8-7
-# 8-8
-# 8-9
+def build_person(first_name, last_name, age=''):
+    """Return a dictionary of iniformation about a person."""
+    person = {'first': first_name, 'last': last_name}
+    if age:
+        person['age'] = age
+    return person
 
+musician = build_person('jimi', 'hendrix', age=27)
+print(musician)
+
+
+# 8-5
+def greet_users(names):
+    """Print a simpale greeting to each user in the list."""
+    for name in names:
+        msg = "Hello, " + name.title() + "!"
+        print(msg)
+usernames = ['hannah', 'ty', 'margot']
+greet_users(usernames)
+
+
+# 8-6
+def print_models(unprinted_designs, completd_models):
+    """
+    Simulate printing each design, until there are none left.
+    Move each design to completed_models after printing.
+    """
+    while unprinted_designs:
+        current_design = unprinted_designs.pop()
+        
+        # Simulate creating a 3d print from the design.
+        print("Printing model: " + current_design)
+        completd_models.append(current_design)
+def show_complited_models(completed_models):
+    """Show all the models that were printed."""
+    print("\nThe following models have been printed:")
+    for completed_model in completed_models:
+        print(completed_model)
+
+unprinted_designs = ['iphone case', 'robot pendant', 'dodecahedron']
+completed_models = []
+
+print_models(unprinted_designs, completed_models)
+show_complited_models(completed_models)
+
+
+# 8-7
+def make_pizza(size, *toppings):
+    """Summarize the pizza we are about to make."""
+    print("\nMaking a " + str(size) + 
+          "-inch pizza with the following toppings:")
+    for topping in toppings:
+        print("- " + topping)
+make_pizza(16, 'pepperoni')
+make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+
+# 8-8
+def build_profile(first, last, **user_info):
+    """Build a dictionary containing everything we know about a user."""
+    profile = {}
+    profile['first_name'] = first
+    profile['last_name'] = last
+    for key, value in user_info.items():
+        profile[key] = value
+    return profile
+user_profile = build_profile('albert', 'einstein',
+                             location = 'princeton',
+                             field = 'physis')  
+print(user_profile)
+
+
+# 8-9
+#import pizza as p
+#
+#p.make_pizza(16, 'pepperoni')
+#p.make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+"""
+Making a 16-inch pizza with the following toppings:
+- pepperoni
+
+Making a 12-inch pizza with the following toppings:
+- mushrooms
+- green peppers
+- extra cheese
+"""
 
 # 9-1
 class Dog():
@@ -84,7 +165,7 @@ class Car():
     
     def get_descriptive_name(self):
         """Return a neatly formatted descriptive name."""
-        long_nmae = str(self.year) + ' ' + self.manufacturer + '' + self.model
+        long_nmae = str(self.year) + ' ' + self.manufacturer + ' ' + self.model
         return long_nmae.title()
     
     def read_odometer(self):
@@ -113,4 +194,55 @@ my_used_car.increment_odometer(100)
 my_used_car.read_odometer()
 
 
-# 
+# 9-3
+"""A set of classes that can be used to represent electric cars."""
+
+from car import Car
+class Battery():
+    def __init__(self, battery_size=60):
+        self.battery_size = battery_size
+        
+    def describe_battery(self):
+        print("This car has a " + str(self.battery_size) + "-kWh battery.")
+    
+    def get_range(self):
+        if self.battery_size == 60:
+            range = 140
+        elif self.battery_size == 85:
+            range = 185
+        message = "This car can go approximately " + str(range)
+        message += " miles on a full charge."
+        print(message)
+        
+class ElectricCar(Car):
+    
+    def __init__(self, manufacturer, model, year):
+        """
+        Initialize attributes of the parent class.
+        The initialize attributes specific to an electirc car.
+        """
+        super().__init__(manufacturer, model, year)
+        self.battery = Battery()
+
+my_tesla = ElectricCar('tesla', 'model s', 2016)
+print(my_tesla.get_descriptive_name())
+my_tesla.battery.describe_battery()
+
+# 9-4 
+from car import Car
+
+my_new_car = Car('audi', 'a4', 2015)
+print(my_new_car.get_descriptive_name())
+
+my_new_car.odometer_reading = 23
+my_new_car.read_odometer()
+
+# 9-5
+from car import Car
+from electric_car import ElectricCar
+
+my_beetle = Car('volkswagen', 'beetle', 2015)
+print(my_beetle.get_descriptive_name())
+
+my_tesla = ElectricCar('tesla', 'roadster', 2015)
+print(my_tesla.get_descriptive_name()) 
