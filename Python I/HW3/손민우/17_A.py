@@ -103,9 +103,6 @@ class Square(Shape):
 
 class DoubleSquare(Square):
 
-	def __init__(self, x):
-		super().__init__(x)
-
 	def area(self):
 		return (self.x * self.y) * 2
 
