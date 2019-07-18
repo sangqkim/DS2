@@ -48,7 +48,7 @@ class Circle:
 		self.pie = 3.141592
 
 	def area(self):
-		return self.pie * self.r ** 2
+		return self.pie * (self.r ** 2)
 
 	def setRadius(self, r):
 		self.r = r
