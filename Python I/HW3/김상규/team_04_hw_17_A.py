@@ -37,9 +37,7 @@ d.eat()
 d.bark()
 
 
-
-'''
-* 출력 결과
+''' 1
 Animal created
 Dog created
 Dog
@@ -71,7 +69,7 @@ print(c.getRadius())
 print(c.area())
 
       
-'''
+''' 2
 출력 결과
 5
 78.5398
@@ -122,7 +120,8 @@ print(rectangle.perimeter())
 rectangle.describe("A wide rectangle, more that twice\as wide as it is tall")
 rectangle.scaleSize(0.5)
 print(rectangle.area())
-''' 출력 결과
+
+''' 3
 4500
 290
 1125.0
