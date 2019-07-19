@@ -5,6 +5,10 @@ def greet_user(username):
 
 greet_user('jesse')
 
+''' 8-1
+Hello, Jesse!
+'''
+
 
 # 8-2
 def describe_pet(pet_name, animal_type='dog'):
@@ -21,6 +25,23 @@ describe_pet('harry', 'hamster')
 describe_pet(pet_name='harry', animal_type='hamster')
 describe_pet(animal_type='hamster', pet_name='harry')
 
+''' 8-2
+I have a dog.
+My dog's name is Willie.
+
+I have a dog.
+My dog's name is Willie.
+
+I have a hamster.
+My hamster's name is Harry.
+
+I have a hamster.
+My hamster's name is Harry.
+
+I have a hamster.
+My hamster's name is Harry.
+'''
+
 
 # 8-3
 def get_formatted_name(first_name, last_name, middle_name=''):
@@ -35,6 +56,11 @@ print(musician)
 musician = get_formatted_name('john', 'hooker', 'lee')
 print(musician)
 
+''' 8-3
+Jimi Hendrix
+John Lee Hooker
+'''
+
 
 # 8-4
 def build_person(first_name, last_name, age=''):
@@ -47,6 +73,10 @@ def build_person(first_name, last_name, age=''):
 musician = build_person('jimi', 'hendrix', age=27)
 print(musician)
 
+''' 8-4
+{'first': 'jimi', 'last': 'hendrix', 'age': 27}
+'''
+
 
 # 8-5
 def greet_users(names):
@@ -56,6 +86,12 @@ def greet_users(names):
         print(msg)
 usernames = ['hannah', 'ty', 'margot']
 greet_users(usernames)
+
+''' 8-5 
+Hello, Hannah!
+Hello, Ty!
+Hello, Margot!
+'''
 
 
 # 8-6
@@ -82,6 +118,17 @@ completed_models = []
 print_models(unprinted_designs, completed_models)
 show_complited_models(completed_models)
 
+''' 8-6
+Printing model: dodecahedron
+Printing model: robot pendant
+Printing model: iphone case
+
+The following models have been printed:
+dodecahedron
+robot pendant
+iphone case
+'''
+
 
 # 8-7
 def make_pizza(size, *toppings):
@@ -92,6 +139,12 @@ def make_pizza(size, *toppings):
         print("- " + topping)
 make_pizza(16, 'pepperoni')
 make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
+
+'''8-7
+- mushrooms
+- green peppers
+- extra cheese
+'''
 
 
 # 8-8
@@ -108,14 +161,17 @@ user_profile = build_profile('albert', 'einstein',
                              field = 'physis')  
 print(user_profile)
 
+''' 8-8
+{'first_name': 'albert', 'last_name': 'einstein', 'location': 'princeton', 'field': 'physis'}
+'''
+
 
 # 8-9
 #import pizza as p
 #
 #p.make_pizza(16, 'pepperoni')
 #p.make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
-
-"""
+""" 8-9
 Making a 16-inch pizza with the following toppings:
 - pepperoni
 
@@ -150,6 +206,15 @@ print("\nMy dog's name is " + your_dog.name.title() + '.')
 print("My dog is " + str(your_dog.age) + " years old.")
 your_dog.sit()
                
+''' 9-1
+My dog's name is Willie.
+My dog is 6 years old.
+Willie is now sitting.
+
+My dog's name is Lucy.
+My dog is 3 years old.
+Lucy is now sitting.
+'''
 
 
 # 9-2
@@ -193,6 +258,12 @@ my_used_car.read_odometer()
 my_used_car.increment_odometer(100)
 my_used_car.read_odometer()
 
+''' 9-2
+2013 Subaru Outback
+This car has 23500 miles on it.
+This car has 23600 miles on it
+'''
+
 
 # 9-3
 """A set of classes that can be used to represent electric cars."""
@@ -228,6 +299,12 @@ my_tesla = ElectricCar('tesla', 'model s', 2016)
 print(my_tesla.get_descriptive_name())
 my_tesla.battery.describe_battery()
 
+''' 9-3
+2016 Tesla Model S
+This car has a 60-kWh battery.
+'''
+
+
 # 9-4 
 from car import Car
 
@@ -236,6 +313,15 @@ print(my_new_car.get_descriptive_name())
 
 my_new_car.odometer_reading = 23
 my_new_car.read_odometer()
+
+''' 9-4
+2015 Audi A4
+This car has 23 miles on it.
+2015 Volkswagen Beetle
+2015 Tesla Roadster
+'''
+
+
 
 # 9-5
 from car import Car
@@ -246,3 +332,33 @@ print(my_beetle.get_descriptive_name())
 
 my_tesla = ElectricCar('tesla', 'roadster', 2015)
 print(my_tesla.get_descriptive_name()) 
+
+''' 9-5
+2015 Volkswagen Beetle
+2015 Tesla Roadster
+'''
+
+
+# 9-6
+from collections import OrderedDict
+
+favorite_languages = OrderedDict()
+
+favorite_languages['jen'] = 'python'
+favorite_languages['sarah'] = 'c'
+favorite_languages['edward'] = 'ruby'
+favorite_languages['phil'] = 'python'
+
+for name, language in favorite_languages.items():
+    print(name.title() + "'s favorite language is " +
+          language.title() + ".")
+
+''' 9-6
+Jen's favorite language is Python.
+Sarah's favorite language is C.
+Edward's favorite language is Ruby.
+Phil's favorite language is Python.
+'''
+
+
+
