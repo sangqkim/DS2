@@ -1,12 +1,13 @@
 # 1: 
 ''' 코드 설명
-Animal class가 생성될 때, __init__ instance가 실행되어 "Animal created" 문장을 출력한다.
-whoAmI, eat instance method가 있으며, 각각 호출되면 print() 안에 있는 내용을 출력한다.
-
-Dog class는 Animal class를 상속받는다.
-super().__init__() 명령으로 인해 Animal의 초기값을 받는다.
-whoAmI라는 method는 Animal class와 동일하여 overriding 된다.
-bark라는 새로운 method가 있으며 호출될 때 해당 내용이 출력된다.
+Dog class는 Animal class를 상속받는다. 
+Dog class가 생성될 때, super().__init__() 명령으로 인해 Animal의 초기값을 받아
+parent class인 Animal class의 __init__() 실행되어 "Animal created" 문장이 출력되고,
+Dog class의 __init__()이 실행되어 "Dog created" 문장 출력
+d.whoAmI() method가 실행되면 Dog class의 whoAmI method가 실행되어 "Dog"가 출력
+(whoAmI라는 method는 Animal class와 동일하여 overriding 된다.)
+d.eat()는 parent class인 Animal class의 eat() method가 실행되어 "Eating" 출력
+d.bark()는 Dog class의 bark() method가 실행되어 "Woof!" 출력
 '''
 
 class Animal:
@@ -78,9 +79,9 @@ print(c.area())
 
 # 3
 ''' 코드 설명
-Shape class 생성될 때, __init__ instance가 실행되고 x, y를 인수로 받고,
-self.description = "This shape has not been described yet"와 
-self.author = "Nobody has claimed to make this shape yet"을 각각의 str를 받는다.
+rectangle = Shape(100, 45) 명령으로 Shape class의 instance를 만들 때, __init__() 실행되며 x, y를 인수로 받는다.
+self.description = "This shape has not been described yet"과 
+self.author = "Nobody has claimed to make this shape yet"의 초기값을 갖는다.
 
 area method는 x*y를 return 하고, 
 perimeter는 2x + 2y를 return 하고,
