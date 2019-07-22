@@ -1,5 +1,5 @@
 # 1
-class Point(object):
+class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -37,3 +37,50 @@ pyt.setPointTwo(pt2)
 print(pyt.getSlope())
 print(pyt.getDistance())
 
+
+
+
+
+
+
+
+# 3
+#class Account:
+#    def __init__(self, name):
+#        self.name = name
+#        self.transaction = []
+#        self.deposit_value = 0
+#    
+#    def deposit(self, value):
+#        self.depositve_value = value
+#        self.transaction_log('deposit', value)
+#    def transaction_log(self, keyword, value):
+#        self.transaction_log(keyword, value)
+
+
+
+
+
+
+
+# 5
+#class ProfessorStudent:
+#    def __init__(self):
+#        pass
+#        
+#    def getName(self):
+#        pass
+#    def getDepart():
+#        pass
+#    def getCredit():
+#        pass
+#    def setCredit():
+#        pass
+#    def increaseYear():
+#        pass
+#    def getCourse():
+#        pass
+#    def getAnnualSalary():
+#        pass
+#    def raiseSalary:
+#        
