@@ -1,5 +1,18 @@
 # 1: 
 ''' 코드 설명
+Animal Class
+생성할 때 "Animal created"를 print한다.
+whoAmI라는 method가 있으며 "Animal"을 print한다.
+eat이라는 method가 있으며 "Eating"을 print한다.
+
+Dog Class
+Animal class를 상속받는다.
+생성할때 Animal의 초기값을 받는다.
+따라서 "Animal created"를 print하고 "Dog created"를 print한다.
+whoAmI라는 method가 있으며 "Dog"을 print한다.
+bark라는 method가 있으며 "Woof"을 print한다
+
+출력 결과 관련 설명
 Dog class는 Animal class를 상속받는다. 
 Dog class가 생성될 때, super().__init__() 명령으로 인해 Animal의 초기값을 받아
 parent class인 Animal class의 __init__() 실행되어 "Animal created" 문장이 출력되고,
@@ -79,10 +92,19 @@ print(c.area())
 
 # 3
 ''' 코드 설명
+Shape class
+class를 생성할 때 x, y를 받으며 해당 값을 저장한다. 그리고 
+description과 author이라는 member를 만든다.
+area라는 method는 x와 y를 곱한 값을 return한다.
+perimeter는 x와 y를 통해서 둘레를 구한다.
+describe는 text parameter를 description에 저장한다.
+authorName은 text parameter를 author에 저장한다.
+scaleSize는 parameter로 받은 scale을 x와 y에 각각 곱해서 저장한다.
+
+출력 결과 관련 설명 
 rectangle = Shape(100, 45) 명령으로 Shape class의 instance를 만들 때, __init__() 실행되며 x, y를 인수로 받는다.
 self.description = "This shape has not been described yet"과 
 self.author = "Nobody has claimed to make this shape yet"의 초기값을 갖는다.
-
 area method는 x*y를 return 하고, 
 perimeter는 2x + 2y를 return 하고,
 describe는 인수로 받은 str를 self.desciption에 할당한다.
