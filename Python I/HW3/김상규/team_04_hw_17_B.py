@@ -141,6 +141,10 @@ make_pizza(16, 'pepperoni')
 make_pizza(12, 'mushrooms', 'green peppers', 'extra cheese')
 
 '''8-7
+Making a 16-inch pizza with the following toppings:
+- pepperoni
+
+Making a 12-inch pizza with the following toppings:
 - mushrooms
 - green peppers
 - extra cheese
@@ -158,11 +162,11 @@ def build_profile(first, last, **user_info):
     return profile
 user_profile = build_profile('albert', 'einstein',
                              location = 'princeton',
-                             field = 'physis')  
+                             field = 'physics')  
 print(user_profile)
 
 ''' 8-8
-{'first_name': 'albert', 'last_name': 'einstein', 'location': 'princeton', 'field': 'physis'}
+{'first_name': 'albert', 'last_name': 'einstein', 'location': 'princeton', 'field': 'physics'}
 '''
 
 
@@ -317,8 +321,6 @@ my_new_car.read_odometer()
 ''' 9-4
 2015 Audi A4
 This car has 23 miles on it.
-2015 Volkswagen Beetle
-2015 Tesla Roadster
 '''
 
 
