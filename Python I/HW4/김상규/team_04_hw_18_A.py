@@ -39,11 +39,38 @@ print(pyt.getDistance())
 
 
 
+print("*****")
+# 2
+class Calculator:
+    result = []
+    
+    def __init__(self):
+        self.item = []
+        self.num = 0
+        
+    def add(self, num):
+        self.num += num
+    
+    def substract(self, num):
+        self.num -= num
+        
+    def multiply(self, num):
+        self.num *= num
+    
+    def equals(self):
+        pass
+    
+    def showHistory(self):
+        
+        if len(self.result) == 0:
+            print("No calculation done yet!")        
+        
+test = Calculator()
+test.equals()
+test.showHistory()
+        
 
-
-
-
-
+print("*****")
 # 3
 #class Account:
 #    def __init__(self, name):
@@ -96,7 +123,7 @@ class Person:
         if percent == 0:
             self.increaseYear()
             self.total_salary = self.salary*year
-            print(year, " year salary: ", self.total_salary)
+            print(year, " year month: ", self.total_salary)
             
         else:
             total = 0
@@ -104,7 +131,7 @@ class Person:
                 self.increaseYear()
                 total += self.raiseSalary(percent)                                    
             self.total_salary = total
-            print(year, " year salary :", percent, "% raise: ", self.total_salary)           
+            print(year, " year month :", percent, "% raise: ", self.total_salary)           
         
     def increaseYear(self):
         self.year += 1  
@@ -161,6 +188,13 @@ class Person:
     def getAnnualSalary(self, year, percent):
         for i in range(year):
             self.raiseAnnualPay(percent)
+        
+    def comparePay(self, other):
+        if self.pay > other.pay:
+            print(self.name, " has a larger monthly pay")
+        else:
+            print(other.name, " has a larger monthly pay")
+        
             
 
 class Staff(Person):
@@ -191,4 +225,4 @@ dane.getAnnualSalary(7, 15)
 #print(dane.pay)
 
 # Write a code to see who has a larger monthly pay 
-# 여기 해야함.
+tom.comparePay(dane)
