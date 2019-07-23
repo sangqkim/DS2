@@ -41,34 +41,73 @@ print(pyt.getDistance())
 
 print("*****")
 # 2
-class Calculator:
-    result = []
+class Calculator:  
     
     def __init__(self):
-        self.item = []
-        self.num = 0
+        self.total = 0
+        self.calc_str = []
         
     def add(self, num):
-        self.num += num
+        self.total += num
+        if len(self.calc_str) == 0:
+            self.calc_str.append(str(num))
+        else:
+            self.calc_str.append('+ ' + str(num))
+
     
-    def substract(self, num):
-        self.num -= num
+    def subtract(self, num):
+        self.total -= num
+        self.calc_str.append('- ' + str(num))
+        
+
         
     def multiply(self, num):
-        self.num *= num
+        self.total *= num
+        self.calc_str.append('* ' + str(num))
+#        self.calc_str.append('*')
+#        self.calc_num.append(num)
     
-    def equals(self):
-        pass
+    def equals(self, equal=False): 
+        if equal == True:
+            self.calc_str.append('= ' + str(self.total))
+            self.showHistory()
+#        
     
     def showHistory(self):
-        
-        if len(self.result) == 0:
-            print("No calculation done yet!")        
+        if len(self.calc_str) == 0:
+            print("No calculation done yet!") 
+            print("History:")
+        else:
+            print("History:")
+            for i in range(len(self.calc_str)):
+                print(self.calc_str[i], end=' ')
+            print('= ', self.total)
+        self.calc_str = []
+            
+#       
         
 test = Calculator()
+#test.equals()
+#test.showHistory()
+#
+#test.add(2)
+#test.subtract(1)
+#test.equals()
+#test.showHistory()
+
+#test.add(2)
+#test.multiply(4)
+#test.equals(True)
+
+test.add(10)
+test.subtract(5)
+test.multiply(2)
 test.equals()
 test.showHistory()
-        
+
+#print(test.calc_str)
+#print(test.calc_num)
+#print(test.total)   
 
 print("*****")
 # 3
