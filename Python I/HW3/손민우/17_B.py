@@ -6,11 +6,17 @@ Hello, Jesse!
 '''
 I have a dog.
 My dog's name is Willie.
+
+I have a dog.
 My dog's name is Willie.
 
 I have a hamster.
 My hamster's name is Harry.
+
+I have a hamster.
 My hamster's name is Harry.
+
+I have a hamster.
 My hamster's name is Harry.
 '''
 
@@ -34,14 +40,14 @@ Hello, Margot!
 
 # 6
 '''
-Printing model: iphone case
-Printing model: robot pendant
 Printing model: dodecahedron
+Printing model: robot pendant
+Printing model: iphone case
 
 The following models have been printed:
-iphone case
-robot pendant
 dodecahedron
+robot pendant
+iphone case
 '''
 
 # 7
@@ -91,7 +97,7 @@ This car has 23600 miles on it.
 
 # 12
 '''
-2016 Tesla Models s
+2016 Tesla Models S
 This car has a 60-kWh battery.
 '''
 

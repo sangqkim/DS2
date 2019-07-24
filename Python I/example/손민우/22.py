@@ -13,7 +13,7 @@ def printMatchedPairs(lst):
 
 
 def towersofhanoi(n,x,y,z):
-	if n>0:
+	if n > 0:
 		towersofhanoi(n-1, x,z,y)
 		print("move the top disk from tower " + x + " to top of tower " + y)
 		towersofhanoi(n-1,z,y,z)
