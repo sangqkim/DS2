@@ -5,7 +5,7 @@ class Calculator:
         self.temp = 0
 
     def add(self, x):
-        if not (self.history =="" or self.history[-1]=="\n"):
+        if not (self.history == "" or self.history[-1] =="\n"):
             self.history+=" + "+str(x)
         else:
             self.history += str(x)
@@ -29,10 +29,9 @@ class Calculator:
     def equals(self, boolean=False):
         if boolean:
             print(self.temp)
-        else:
-            if not (self.history == "" or self.history[-1] == "\n"):
-                self.history +=" = %d\n"%self.temp
-                self.temp=0
+        if not (self.history == "" or self.history[-1] == "\n"):
+            self.history += " = %d\n"%self.temp
+            self.temp=0
 
     def showHistory(self):
         if self.history == "":
