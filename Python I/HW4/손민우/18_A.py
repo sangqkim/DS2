@@ -177,85 +177,85 @@ class molecule:
 		return str
 
 # 5
-# class Person:
-#
-# 	def __init__(self, name):
-# 		self.name = name
-#
-# 	def getName(self):
-# 		return self.name
-#
-# class Student(Person):
-#
-# 	def __init__(self, name, depart, year, credit):
-# 		super().__init__(name)
-# 		self.depart = depart
-# 		self.year = year
-# 		self.credit = credit
-#
-# 	def setDepart(self, depart):
-# 		self.depart = depart
-#
-# 	def getDepart(self):
-# 		return self.depart
-#
-# 	def setYear(self, year):
-# 		self.year = year
-#
-# 	def getYear(self):
-# 		return self.year
-#
-# 	def setCredit(self, credit):
-# 		self.credit = credit
-#
-# 	def getCredit(self):
-# 		return self.credit
-#
-# 	def increaseYear(self):
-# 		self.year += 1
-#
-# class Professor(Person):
-#
-# 	def __init__(self, name, course, depart, salary):
-# 		super().__init__(name)
-# 		self.course = course
-# 		self.depart = depart
-# 		self.salary = salary
-#
-# 	def getCourse(self):
-# 		return self.course
-#
-# 	def getDepart(self):
-# 		return self.depart
-#
-# 	def getAnnualSalary(self):
-# 		return self.salary * 12
-#
-# 	def getSalary(self):
-# 		return self.salary
-#
-# 	def raiseSalary(self, percent):
-# 		increase_money = self.salary * (percent/100)
-# 		self.salary += increase_money
-# 		return self.salary + increase_money
-#
-# def calc_salary(Professor, year):
-#
-# 	salary = Professor.getAnnualSalary()
-# 	return salary * year
-#
-# def calc_incresed_salary(Professor, month, percent):
-#
-# 	salary = Professor.getSalary()
-# 	for _ in range(month):
-# 		increase_money = salary * (percent / 100)
-# 		salary += increase_money
-#
-# 	return salary
-#
-# tim_cook = Professor('Tim Cook', 'Soft.Arch.', 'CSE',5500)
-# calc_salary(tim_cook, 5)
-# calc_incresed_salary(tim_cook, 5, 15)
+class Person:
+
+	def __init__(self, name):
+		self.name = name
+
+	def getName(self):
+		return self.name
+
+class Student(Person):
+
+	def __init__(self, name, depart, year, credit):
+		super().__init__(name)
+		self.depart = depart
+		self.year = year
+		self.credit = credit
+
+	def setDepart(self, depart):
+		self.depart = depart
+
+	def getDepart(self):
+		return self.depart
+
+	def setYear(self, year):
+		self.year = year
+
+	def getYear(self):
+		return self.year
+
+	def setCredit(self, credit):
+		self.credit = credit
+
+	def getCredit(self):
+		return self.credit
+
+	def increaseYear(self):
+		self.year += 1
+
+class Professor(Person):
+
+	def __init__(self, name, course, depart, salary):
+		super().__init__(name)
+		self.course = course
+		self.depart = depart
+		self.salary = salary
+
+	def getCourse(self):
+		return self.course
+
+	def getDepart(self):
+		return self.depart
+
+	def getAnnualSalary(self):
+		return self.salary * 12
+
+	def getSalary(self):
+		return self.salary
+
+	def raiseSalary(self, percent):
+		increase_money = self.salary * (percent/100)
+		self.salary += increase_money
+		return self.salary
+
+def calc_salary(Professor, year):
+
+	salary = Professor.getAnnualSalary()
+	return salary * year
+
+def calc_incresed_salary(Professor, month, percent): # Month로 바꿈
+
+	salary = Professor.getSalary()
+	for _ in range(month):
+		increase_money = salary * (percent / 100)
+		salary += increase_money
+
+	return salary
+
+tim_cook = Professor('Tim Cook', 'Soft.Arch.', 'CSE',5500)
+print(calc_salary(tim_cook, 5))
+print(calc_incresed_salary(tim_cook, 5, 15))
 
 # 6
 class Person:
@@ -290,7 +290,7 @@ class Staff(Person):
 	def raiseAnnualPay(self, percent):
 		increase_money = self.ann_pay * (percent / 100)
 		self.ann_pay += increase_money
-		return self.ann_pay + increase_money
+		return self.ann_pay
 
 class Student(Person):
 
@@ -332,13 +332,13 @@ def who_has_a_lager_pay(Staff_A:Staff, Staff_B:Staff):
 
 	# s1_pay = Staff_A.getMonthlyPay()
 	# s2_pay = Staff_B.getMonthlyPay()
-	s1_pay = calc_incresed_salary(Staff_A, 7, 7)
-	s2_pay = calc_incresed_salary(Staff_B, 7, 15)
+	s1_monthly_pay = calc_incresed_salary(Staff_A, 7, 7) / 12
+	s2_monthly_pay = calc_incresed_salary(Staff_B, 7, 15) / 12
 
-	if s1_pay > s2_pay:
+	if s1_monthly_pay > s2_monthly_pay:
 		print(Staff_A.getName() + ' has a lager monthly pay')
 
-	elif s2_pay > s1_pay:
+	elif s2_monthly_pay > s1_monthly_pay:
 		print(Staff_B.getName() + ' has a lager monthly pay')
 
 	else:
@@ -349,7 +349,7 @@ tom = Staff('Tom', 'Gangnam', 'Yonsei', 350000)
 dane = Staff('Dane', 'Shindorim', 'Sogang', 20000)
 
 calc_incresed_salary(tom, 7, 7)
-calc_incresed_salary(dane, 7, 7)
+calc_incresed_salary(dane, 7, 15)
 
 who_has_a_lager_pay(tom, dane)
 
