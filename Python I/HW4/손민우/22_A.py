@@ -33,14 +33,21 @@ import queue
 
 def printMatchedPairs(lst):
 	a = queue.LifoQueue()
-
+	p_lst = []
 	for i in range(len(lst)):
 		if lst[i]=='(':
 			a.put(i)
 		elif lst[i]==')':
-			idx = a.get()
-			print('({}, {})'.format(idx, i))
-			print()
+			try:
+				idx = a.get()
+				p_lst.append((idx, i))
+				# print('({}, {})'.format(idx, i))
+				# print()
+			except:
+				print('error')
+	if not a.empty():
+		print('error')
+	print(*p_lst)
 
 
 def towersofhanoi(n,x,y,z):

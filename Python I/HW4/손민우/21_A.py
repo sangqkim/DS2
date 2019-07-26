@@ -11,7 +11,7 @@ class CircularQueue:
 
 	def enqueue(self, element):
 		if self.is_full():
-			return
+			return 'queue is full'
 
 		self.rear += 1
 		if self.rear >= self.M:
@@ -21,7 +21,7 @@ class CircularQueue:
 
 	def dequeue(self):
 		if self.is_empty():
-			return
+			return 'queue is empty'
 
 		self.front += 1
 		if self.front >= self.M:
@@ -30,14 +30,21 @@ class CircularQueue:
 		return self.queue[self.front]
 
 	def multi_dequeue(self, count):
-		pass
+		for _ in range(count):
+			self.dequeue()
 
 	def peek(self):
-		pass
+		return self.queue[self.front]
 
 	def is_empty(self):
-		pass
+		if self.front == self.rear:
+			return True
+		else:
+			return False
 
 	def is_full(self):
-		pass
+		if self.front % self.M == (self.rear+1) % self.M:
+			return True
+		else:
+			return False
 
