@@ -181,18 +181,25 @@ class molecule:
         return str
 ''' 코드 설명
 Atno_to_Symbol은 원자 번호와 원자를 key-value pair를 갖는 dictionary 이다.
-atom class
-__init__ method는 클래스를 초기화시키면서 initial value를 받는다.
-symbol method는 self.atno에 맞는 Atno_to_Symbol의 value (원자기호)를 return 해준다.
-__repr__ method는 atom 클래스로부터 생성된 object를 print할 때 출력되는 내용을 정의한다.
-출력 내용은 class 초기화 때 입력받은 self.atno와 x,y,z 값을 나타낸다.
+1) atom class
+    __init__ method:
+        클래스를 초기화시키면서 initial value (x,y,z)를 받는다.
+        self.atno는 입력받은 atno를 받고, 
+        self.position은 입력받은 x,y,z를 tuple type으로 받는다. 
+    symbol method:
+        self.atno에 맞는 Atno_to_Symbol의 value (원자기호)를 return 해준다.
+    __repr__ method:
+        atom 클래스로부터 생성된 object를 print할 때 출력되는 내용을 정의한다.
+        출력 내용은 class 초기화 때 입력받은 self.atno와 x,y,z 값을 나타낸다.
 
-molecule class
-__init__ method는 클래스를 초기화시키면서 name이라는 초기값는 받는데, 
-default는 'Generic'이고, self.atomlist라는 빈 리스트를 생성한다.
-addatom method는 atom object를 인수로 받는다.
-__repr__ method는 str에 입력된 문장 출력과 함께 atom object에서 return된 값을 출력한다.
-
+2) molecule class
+    __init__ method:
+         클래스를 초기화시키면서 name이라는 초기값는 받는데, 
+         default는 'Generic'이고, self.atomlist라는 빈 리스트를 생성한다.
+         addatom method는 atom object를 인수로 받는다.
+    __repr__ method:
+        str에 입력된 문장 출력과 함께 atom object에서 return된 값을 출력한다.
+        
 '''
 
 at = atom(6, 0.0, 1.0, 2.0)
