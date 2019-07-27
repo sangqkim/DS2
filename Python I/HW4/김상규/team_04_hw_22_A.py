@@ -45,9 +45,9 @@ class Stack:
 #            idx = s.pop()
             
             
-# version 2
-def parenthesisMatching(lst):
-    import queue
+# version 2, python module 사용 
+import queue
+def parenthesisMatching(lst):    
     s = queue.LifoQueue(len(lst))
     
     for i in range(len(lst)):
@@ -75,14 +75,3 @@ def towerOfHanoi(n, x, y, z):
 
 towerOfHanoi(4, "x", "y", "z")
 
-
-# 3
-class node:
-    def _init_(self, val, left=None, right=None): # default value는 항상 뒤에 써야함.
-        self.val = _val
-        self.left = _left
-        self.right = _right
-        
-    
-    
-        

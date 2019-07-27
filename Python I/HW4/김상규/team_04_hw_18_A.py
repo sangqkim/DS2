@@ -152,6 +152,8 @@ main()
 
 print()
 print("***** #4 *****")
+      
+      
 # 4
 Atno_to_Symbol = {1:'H', 2:'He', 3:'Li', 4:'Be', 5: 'B', 6:'C', 7: 'N', 8:'O'}
 class atom(object):
@@ -196,7 +198,8 @@ Atno_to_Symbol은 원자 번호와 원자를 key-value pair를 갖는 dictionary
     __init__ method:
          클래스를 초기화시키면서 name이라는 초기값는 받는데, 
          default는 'Generic'이고, self.atomlist라는 빈 리스트를 생성한다.
-         addatom method는 atom object를 인수로 받는다.
+    addatom method:
+        atom object를 인수로 받으며 atomlist에 값을 추가한다.
     __repr__ method:
         str에 입력된 문장 출력과 함께 atom object에서 return된 값을 출력한다.
         
@@ -211,10 +214,19 @@ mol = molecule('Water')
 at = atom(8, 0., 0. ,0.)
 mol.addatom(at)
 mol.addatom(atom(1, 0., 0., 1.))
-mol.addatom(atom(1, 0., 0., 0.))
+mol.addatom(atom(1, 0., 1., 0.))
 print(mol)
 
+''' 출력 결과
+6     0.0000     1.0000     2.0000
+'C'
+This is a molecule named Water
+It has 3 atoms
+8     0.0000     0.0000     0.0000 
+1     0.0000     0.0000     1.0000 
+1     0.0000     1.0000     0.0000
 
+'''
 
 
 
@@ -222,76 +234,70 @@ print()
 print("***** #5 *****")
 # 5
 class Person:
-    def __init__(self, name):
+    def __init__(self, name, depart):
         self.name = name
-        self.year = 0
-        
-    # 빈 칸을 채워주는 method 만듬 setXXX()
-    def setName(self, name):
-        self.name = name
-        
-    def setDepart(self, depart):
         self.depart = depart
+        self.year = 0
+    def getName(self):
+        return self.name    
+    
+    def getDepart(self):
+        return self.depart
+    
+   
+        
+class Student(Person):
+    def __init__(self, name, year):
+        super().__init__(name)  
+        self.year = year
         
     def setCredit(self, credit):
-        self.credit = credit
-        
-    def setCourse(self, course):
-        self.course = course    
-        
-    def setSalary(self, salary):
+        self.credit = credit   
+    
+    def getCredit(self):
+        return self.credit
+    
+    def increaseYear(self):
+        self.year += 1            
+   
+
+class Professor(Person):
+    def __init__(self, name, Depart, course, salary):
+        super().__init__(name, Depart)
+        self.course = course 
         self.salary = salary
+    
+    def getCourse(self):
+        return self.course   
+    
+    def getAnnualSalary(self):
+        return self.salary * 12
     
     def raiseSalary(self, percent):
         self.salary = self.salary * (1+percent/100)
         return self.salary
-#        print(year, " year salary :", percent, "% raise: ", self.total_salary) 
+
+
+def calcTotalAmountSalary(professor, month, percent): # 기간은 month로 변경
+    total = 0
+    if percent == 0:
+        for i in range(month):
+            total += professor.raiseSalary(percent)
+        print(month, " month salary : ", total)           
         
-    
-    def getTotalSalary(self, year, percent):
-        
-        if percent == 0:
-            self.increaseYear()
-            self.total_salary = self.salary*year
-            print(year, " year month: ", self.total_salary)
+    else: 
+        for i in range(month):
+            total += professor.raiseSalary(percent)
+        print(month, " month salary :", percent, "% raise: ", total)           
             
-        else:
-            total = 0
-            for i in range(year):
-                self.increaseYear()
-                total += self.raiseSalary(percent)                                    
-            self.total_salary = total
-            print(year, " year month :", percent, "% raise: ", self.total_salary)           
-        
-    def increaseYear(self):
-        self.year += 1  
-    
-    def getAnnualSalary(self, salary):
-        self.salary = salary * 12        
-   
-
-class Professor(Person):
-    def __init__(self, name):
-        super().__init__(name)
-
-class Student(Person):
-    def __init__(self, name):
-        super().__init__(name)
         
 
 # Create an object called tim_cook 
-tim_cook = Professor('Tim Cook')
+tim_cook = Professor('Tim Cook', 'CSE', 'Soft.Arch.', 5500)
 
-# Set tim_cook values to match the data from the table 
-tim_cook.setCourse('Soft.Arch.')
-tim_cook.setDepart('CSE')
-tim_cook.setSalary(5500)
+calcTotalAmountSalary(tim_cook, 5, 0)
+calcTotalAmountSalary(tim_cook, 5, 15)
 
-# Write a code that will calculate the total amount of salary tim_cook will receive in five years
-tim_cook.getTotalSalary(5, 0)
-
-# Write a code that will calculate the total amount of salary of tim_cook if his salary is raised 15% every year for five year 
-tim_cook.getTotalSalary(5, 15)
 
 
 
@@ -300,25 +306,35 @@ print("***** #6 *****")
 # 6
 class Person:
     
-    def __init__(self, name):
+    def __init__(self, name, address):
         self.name = name
-  
-    def setAddress(self, address):
-       self.address = address
-       
-    def setSchool(self, school):
-        self.school = school
+        self.address = address
     
-    def setAnnualPay(self, pay):
+    def getName(self):
+        return self.name
+       
+    def getAddress(self, address):
+       return self.address    
+    
+
+class Staff(Person):
+    def __init__(self, name, address, school, pay):
+        super().__init__(name, address)
+        self.school = school
         self.pay = pay
+        
+    def getSchool(self):
+        return self.school
     
     def raiseAnnualPay(self, percent):
         self.pay = self.pay * (1+percent/100)
-        return self.pay
-    
-    def getAnnualSalary(self, year, percent):
-        for i in range(year):
-            self.raiseAnnualPay(percent)
+#        return self.pay
+            
+    def getAnnualPay(self):       
+        return self.pay 
+        
+    def getMonthlyPay(self):
+        return self.pay/12
         
     def comparePay(self, other):
         if self.pay > other.pay:
@@ -326,34 +342,58 @@ class Person:
         else:
             print(other.name, " has a larger monthly pay")
         
-            
-
-class Staff(Person):
-    def __init__(self, name):
-        super().__init__(name)
 
 class Student(Person):
-    def __init__(self, name):
-        super().__init__(name)
+    def __init__(self, name, address):
+        super().__init__(name, address)
+    
+    def setGpa(self, gpa):
+        self.gpa = gpa
+    
+    def getGpa(self):
+        return self.gpa
+    
+    def hasMinimumGpa(self):
+        if self.gap >= 3.5: # gpa 3.5 이상으로 가정
+            return True
+        else:
+            return False
+    
+    def willGraduateNextYear(self):
+        if self.year == 4:
+            return True
+        else:
+            return False
+
+def calc_incresed_salary(Staff, year, percent):
+	salary = Staff.getAnnualPay()
+	for _ in range(year):
+		increase_money = salary * (percent / 100)
+		salary += increase_money
+	return salary
+
+
+def who_has_a_lager_pay(Staff_A:Staff, Staff_B:Staff):
+    
+	# s1_pay = Staff_A.getMonthlyPay()
+	# s2_pay = Staff_B.getMonthlyPay()
+	s1_monthly_pay = calc_incresed_salary(Staff_A, 7, 7) / 12
+	s2_monthly_pay = calc_incresed_salary(Staff_B, 7, 15) / 12
+    
+	if s1_monthly_pay > s2_monthly_pay:
+		print(Staff_A.getName() + ' has a lager monthly pay')
+	elif s2_monthly_pay > s1_monthly_pay:
+		print(Staff_B.getName() + ' has a lager monthly pay')
+	else:
+		print('Same Same')        
         
 # Create an object called tom and dane 
-tom = Staff('tom'.title())
-dane = Staff('dane'.title())
+tom = Staff('tom'.title(), 'Gangnam', 'Yonsei', 35000)
+dane = Staff('dane'.title(), 'Shindorim', 'Sogang', 20000)
 
-#  Set tom and dane values to match the data from the table 
-tom.setAddress('Gangnam')
-tom.setSchool('Yonsei')
-tom.setAnnualPay(35000)
+calc_incresed_salary(tom, 7, 7)
 
-dane.setAddress('Shindorim')
-dane.setSchool('Sogang')
-dane.setAnnualPay(20000)
+calc_incresed_salary(dane, 7, 15)
 
-# Write a code that will calculate tom and dane annual salary after seven year
-tom.getAnnualSalary(7, 7)
-dane.getAnnualSalary(7, 15)
-#print(tom.pay)
-#print(dane.pay)
 
-# Write a code to see who has a larger monthly pay 
-tom.comparePay(dane)
+who_has_a_lager_pay(tom, dane)
