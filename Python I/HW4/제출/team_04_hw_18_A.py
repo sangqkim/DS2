@@ -145,7 +145,7 @@ def main():
     tom_account = Account('Tom')
     tom_account.deposit(5000000)
     tom_account.withdrawal(250)
-    tom_account.deposit(875)
+    tom_account.withdrawal(875)
     tom_account.status()
 
 main()
