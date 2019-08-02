@@ -23,9 +23,12 @@ def p_check(str):
 				c_p_idx = idx
 				p_lst.append((o_p_idx, c_p_idx))
 			except:
-				p_lst.append('no matching')
+				p_lst.append('ERROR')
 	if len(s.lst):
-		print('error')
+		if 'ERROR' in p_lst:
+			pass
+		else:
+			p_lst.append('ERROR')
 	print(*p_lst)
 
 
@@ -39,14 +42,15 @@ def printMatchedPairs(lst):
 			a.put(i)
 		elif lst[i]==')':
 			try:
-				idx = a.get()
+				idx = a.get(timeout=0.1)
 				p_lst.append((idx, i))
-				# print('({}, {})'.format(idx, i))
-				# print()
 			except:
-				print('error')
+				p_lst.append('ERROR')
 	if not a.empty():
-		print('error')
+		if 'ERROR' in p_lst:
+			pass
+		else:
+			p_lst.append('ERROR')
 	print(*p_lst)
 
 
@@ -55,3 +59,4 @@ def towersofhanoi(n,x,y,z):
 		towersofhanoi(n-1, x,z,y)
 		print("move the top disk from tower " + x + " to top of tower " + y)
 		towersofhanoi(n-1,z,y,z)
+towersofhanoi(4, 'x', 'y', 'z')

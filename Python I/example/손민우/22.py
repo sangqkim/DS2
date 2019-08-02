@@ -9,7 +9,6 @@ def printMatchedPairs(lst):
 		elif lst[i] == ')':
 			idx = a.get()
 			print('({}, {})' .format(idx, i))
-			print()
 
 
 def towersofhanoi(n,x,y,z):
