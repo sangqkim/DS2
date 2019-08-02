@@ -12,7 +12,7 @@ b = np.arange(10, 50)
 print(b)
 
 # 4
-a = np.arange(25).reshape(5,5)
+a = np.arange(25).reshape(5, 5)
 print(a)
 
 # 5
