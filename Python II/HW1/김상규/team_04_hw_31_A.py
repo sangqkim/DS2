@@ -61,5 +61,5 @@ labels2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 
 df2 = pd.DataFrame(exam2_data, index=labels2)
 # pd.merge(df, df2, on='name') # 사람의 이름이 동일하므로 name을 기준으로 d
-inner_join = pd.merge(df, df2, on='name')
+inner_join = pd.merge(df, df2, how='outer', on='name') # outer join 사용
 print(inner_join)
