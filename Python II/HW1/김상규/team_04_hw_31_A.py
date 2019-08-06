@@ -36,13 +36,13 @@ c     Cahill   16.5         3     yes
 '''
 
 # (1-3)
-print(df[['name', 'score']].iloc[[0,1,4,5]]) # row의 시작을 0번부터
+print(df[['name', 'score']].iloc[[1,2,5,6]]) # row 0번을 기준으로 1,2,5,6번 row
 '''결과
         name  score
-a  Anastasia   13.0
 b  Catherine    9.5
-e      Emily   11.0
+c     Cahill   16.5
 f    Michael   20.0
+g     Monica   17.0
 '''
 
 # (1-4)
