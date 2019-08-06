@@ -5,6 +5,8 @@ engines = ['dot', 'neato', 'fdp', 'sfdp', 'twopi', 'circo']
 for engine in engines:
      A = Digraph(comment = '7th Edition', engine = str(engine))
      A.attr('node', color='goldenrod2', style='filled', size='7.5')
+     # color = goldenrod2
+     # size = 7.5
      
      A.edge("7th Edition", "32V")
      A.edge("7th Edition", "V7M")
@@ -28,9 +30,9 @@ for engine in engines:
 
      A.render("7th Edition(" + str(engine) + '_engine)', view=False)
      
-     
+    
 '''
-"dot" engine을 사용한 경우가 가장 잘 표현 한 것 같음
+"dot" layout engine을 사용한 경우가 hierachy 관계를 사용자가 보기 쉽게 가장 잘 표현했음
 '''
 
 
@@ -40,7 +42,7 @@ from graphviz import Digraph
 g = Digraph(comment='Red-Blak Tree', engine='dot')
 g.attr('graph', ratio='.5')
 
-g.attr('node', style='filled', color='black', shape='circle', width='.6', fontsize='24', fontcolor='white')
+g.attr('node', style='filled', color='black', shape='circle', width='.7', fontsize='24', fontcolor='white')
 g.node('13')
 g.node('1')
 g.node('11')
