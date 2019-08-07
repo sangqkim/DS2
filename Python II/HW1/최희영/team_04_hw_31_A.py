@@ -233,21 +233,16 @@ j     Jordan   19.0         1     yes
 
 
 
-df3=pd.merge(df, df2, left_index=True, right_index=True)
+df3=pd.merge(df, df2, how='inner', on='name')
 print(df3)
 
 #결과
 """
-      name_x  score  attempts quality     name_y  score2
-a  Anastasia   13.0         1     yes  Anastasia    11.0
-b  Catherine    9.5         3      no  Catherine    20.0
-c     Cahill   16.5         3     yes    Ronaldo    16.5
-d      James    NaN         2      no      James     NaN
-e      Emily   11.0         2      no      Messi    10.0
-f    Michael   20.0         3     yes    Michael    15.0
-g     Monica   17.0         2     yes     Monica    20.0
-h      Laura    NaN         3      no      Laura     NaN
-i      Kevin    8.5         2      no    Klassen     8.0
-j     Jordan   19.0         1     yes      Jonas     8.0
-
+        name  score  attempts quality  score2
+0  Anastasia   13.0         1     yes    11.0
+1  Catherine    9.5         3      no    20.0
+2      James    NaN         2      no     NaN
+3    Michael   20.0         3     yes    15.0
+4     Monica   17.0         2     yes    20.0
+5      Laura    NaN         3      no     NaN
 """
