@@ -86,7 +86,8 @@ print(df['score'].mean())
 # (3)
 # (3-1)
 labels.append('k')
-df.loc['k'] = ['Saya', 17.5, 2, 'yes']
+#df.loc['k'] = ['Saya', 17.5, 2, 'yes']
+df.loc['k'] = {'name':'Saya', 'score':17.5, 'attempts':2, 'qualify':'yes'}
 print(df)
 '''결과
         name  score  attempts qualify
