@@ -118,7 +118,7 @@ exam_data = {'name':['Anastasia', 'Catherine', 'cahill', 'James', 'Emily', 'Mich
 labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
 df = pd.DataFrame(exam_data, index=labels)
 
-exam2_data = {'name':['Anastasia', 'catherine', 'Ronaldo', 'James', 'Messi', 'Michael', 'Monica'
+exam2_data = {'name':['Anastasia', 'Catherine', 'Ronaldo', 'James', 'Messi', 'Michael', 'Monica'
                       , 'Laura', 'Klassen', 'Jonas'],
               'score2': [11,20,16.5,np.nan, 10,15,20,np.nan,8,8]}
 labels2 = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
