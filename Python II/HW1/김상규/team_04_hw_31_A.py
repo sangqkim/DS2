@@ -36,13 +36,13 @@ c     Cahill   16.5         3     yes
 '''
 
 # (1-3)
-print(df[['name', 'score']].iloc[[0,1,4,5]]) # row의 시작을 0번부터
+print(df[['name', 'score']].iloc[[1,2,5,6]]) # row 0번을 기준으로 1,2,5,6번 row
 '''결과
         name  score
-a  Anastasia   13.0
 b  Catherine    9.5
-e      Emily   11.0
+c     Cahill   16.5
 f    Michael   20.0
+g     Monica   17.0
 '''
 
 # (1-4)
@@ -86,7 +86,8 @@ print(df['score'].mean())
 # (3)
 # (3-1)
 labels.append('k')
-df.loc['k'] = ['Saya', 17.5, 2, 'yes']
+#df.loc['k'] = ['Saya', 17.5, 2, 'yes']
+df.loc['k'] = {'name':'Saya', 'score':17.5, 'attempts':2, 'qualify':'yes'}
 print(df)
 '''결과
         name  score  attempts qualify
@@ -151,6 +152,14 @@ attempts
 
 
 #4
+exam_data = {'name': ['Anastasia', 'Catherine', 'Cahill', 'James', 'Emily', 'Michael', 'Monica',
+                      'Laura', 'Kevin', 'Jordan'],
+            'score': [13, 9.5, 16.5, np.nan, 11, 20, 17, np.nan, 8.5, 19],
+            'attempts': [1, 3, 3, 2, 2, 3, 2, 3, 2, 1],
+            'qualify': ['yes', 'no', 'yes', 'no', 'no', 'yes', 'yes', 'no', 'no', 'yes']}
+labels = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']
+df = pd.DataFrame(exam_data, index=labels)
+
 exam2_data = {'name': ['Anastasia', 'Catherine', 'Ronaldo', 'James', 'Messi', 'Michael', 'Monica',
                       'Laura', 'Klassen', 'Jonas'],
             'score2': [11, 20, 16.5, np.nan, 10, 15, 20, np.nan, 8, 8]}

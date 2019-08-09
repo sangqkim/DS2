@@ -1,7 +1,8 @@
-#25장
-# 25-A
-#1번
+
+# 1번 과제
+
 from graphviz  import Digraph
+
 engines=['dot','neato','fdp','sfdp','twopi','circo']
 
 for engine in engines:
@@ -32,8 +33,9 @@ for engine in engines:
     g.render(filename='gviz/DUH.'+str(engine)+' engine', view=True)
 
 
-# 25-A
-# 2번
+# 2번 과제
+
+
 from graphviz  import Digraph
 g= Digraph('Red-Black Tree', engine='dot')
 g.attr('graph', ratio='0.5')
@@ -76,158 +78,3 @@ g.edges([('1','n1'),('1','6'),('11','n4'),('11','n5'),('15','n6'),('15','n7'),('
 g.edges([('6','n2'),('6','n3'),('22','n8'),('22','n9'),('27','n10'),('27','n11')])
        
 g.render(filename="gviz/red-black tree", view=True)
-
-
-#30장
-#30-A
-#(1)
-
-import numpy as np
-a=np.zeros(10)
-print(a)
-
-
-#(2)
-a[4]=1
-print(a)
-
-
-#(3)
-a=np.arange(10,50)
-print(a)
-
-
-#(4)
-a=np.arange(0,25)
-b=a.reshape(5,5)
-print(b)
-
-#(5)
-a=np.eye(5)
-print(a)
-
-
-#(6)
-np.random.seed(5)
-a=np.random.random(size=(5,5))
-b=a.min()
-c=a.max()
-print(a)
-print(b)
-print(c)
-
-
-#(7)
-
-a=np.ones((4,3))
-b=np.random.random((3,2))
-c=np.dot(a,b)
-print(a)
-print(b)
-print(c)
-
-
-#(8)
-d=c.transpose()
-print(d)
-
-
-#(9)
-a=np.arange(0,25).reshape(5,5)
-b=np.arange(25,50).reshape(5,5)
-c=a+b
-d=a-b
-print(a)
-print(b)
-print(c)
-print(d)
-
-#31장
-
-import numpy as np
-import pandas as pd
-#31-A
-
-exam_data = {'name':['Anastasia', 'Catherine', 'Cahill', 'James','Emily', 
-             'Michael','Monica','Laura','Kevin','Jordan'],
-            'score':[13,9.5,16.5, np.nan,11,20,17,np.nan, 8.5, 19],
-            'attempts':[1,3,3,2,2,3,2,3,2,1],
-            'quality':['yes','no','yes','no','no','yes','yes','no','no','yes']}
-labels=['a','b','c','d','e','f','g','h','i','j']
-
-df = pd.DataFrame(exam_data, index=labels)
-
-
-
-#(1-1)
-print(df[['name','score']])
-
-
-#(1-2)
-print(df.iloc[:3])
-
-
-#(1-3)
-print(df[['name','score']].iloc[[1,2,5,6]])
-
-
-#(1-4)
-print(df[(df['attempts']>2)])
-
-
-#(2-1)
-print(df[df['score'].isnull()])
-
-
-#(2-2)
-print(df[(df['attempts']<2) & (df['score']>15)])
-
-
-#(2-3)
-print(df['attempts'].sum())
-
-
-#(2-4)
-print(df['score'].mean())
-
-
-
-#(3-1)
-data={'name' : "Saya", 'score': 17.5, 'attempts': 2, 'qualify': "yes"}
-df.loc['k']=data
-print(df)
-
-
-#(3-2)
-df=df.drop('k',axis=0)
-print(df)
-
-
-#(3-3)
-del df['attempts']
-print(df)
-
-
-
-#(3-4)
-grouped=df.groupby('attempts')
-print(grouped['score'].sum())
-
-
-#(3-5)
-exam2_data = {'name':['Anastasia', 'Catherine', 'Ronaldo', 'James','Messi', 
-             'Michael','Monica','Laura','Klassen','Jonas'],
-            'score2':[11,20,16.5, np.nan,10,15,20,np.nan,8,8]}
-labels2=['a','b','c','d','e','f','g','h','i','j']
-
-df2 = pd.DataFrame(exam2_data, index=labels2)
-print(df2)
-print(df)
-
-
-df3=pd.merge(df, df2, left_index=True, right_index=True)
-print(df3)
-
-
-
-

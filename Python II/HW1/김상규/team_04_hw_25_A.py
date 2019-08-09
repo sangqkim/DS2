@@ -42,7 +42,7 @@ from graphviz import Digraph
 g = Digraph(comment='Red-Blak Tree', engine='dot')
 g.attr('graph', ratio='.5')
 
-g.attr('node', style='filled', color='black', shape='circle', width='.7', fontsize='24', fontcolor='white')
+g.attr('node', style='filled', color='black', shape='circle', width='.7', fontsize='24', fontcolor='white', fixedsize='true')
 g.node('13')
 g.node('1')
 g.node('11')
@@ -56,7 +56,7 @@ g.node('6')
 g.node('22')
 g.node('27')
 
-g.attr('node', fillcolor='black', shape='record', label='NIL', width='.6', fontsize='24', fontcolor='white')
+g.attr('node', fillcolor='black', shape='record', label='NIL', width='.5', height='0.25', fontsize='18', fontcolor='white', fixedsize='true')
 g.node('n1')
 g.node('n2')
 g.node('n3')
