@@ -1,0 +1,415 @@
+
+ch2-8
+> db.foo.insert({foo:'bar'})
+> db.foo.insert({foo:'bar'})
+
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "foo" : "bar" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "foo" : "bar" }
+
+> db.foo.replaceOne({foo:'bar'}, {f:'b'})
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "foo" : "bar" }
+
+> db.foo.update({foo:'bar'}, {f:'b'})
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+
+
+ch2-9
+> db.foo.insert({foo:'bar', age:30})
+> db.foo.insert({foo:'bar', age:31})
+> db.foo.insert({foo:'bar', age:32})
+
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 30 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 32 }
+
+> db.foo.updateOne({foo:'bar'},{$set:{age:33}})
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 32 }
+
+> db.foo.updateMany({foo:'bar'},{$set:{age:33}})
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 33 }
+
+
+ch2-11
+> db.foo.insertMany([{"_id":0}, {"_id":1},{"_id":1}, {"_id":2}])
+> db.foo.updateOne({foo:'bar'}, {$set:{age:22}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 22 }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 33 }
+
+
+> db.foo.updateOne({foo:'bar'}, {$set: {status:null}})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 22, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 33 }
+
+
+ch2-12
+> db.foo.updateMany({foo:'bar'}, {$inc: {age:10}})
+
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 32, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 43 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 43 }
+
+
+> db.foo.insert({foo:'bar', age:'unknown'})
+> db.foo.updateMany({foo:'bar'}, {$inc: {age:10}})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+
+
+ch2-13
+> db.foo.update({foo:'huh?'}, {age:99})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+
+> db.foo.update({foo:'huh?'}, {age:99},true)
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+
+> db.foo.update({foo:'huh?'}, {age:99},{upsert:true})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+
+> db.foo.update({foo:'huh?'}, {$set:{age:-99}})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d6155c1fefb5155be918cb6"), "f" : "b" }
+{ "_id" : ObjectId("5d6155c2fefb5155be918cb7"), "f" : "b" }
+{ "_id" : ObjectId("5d61564bfefb5155be918cb8"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d615651fefb5155be918cb9"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d615654fefb5155be918cba"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d6158b2fefb5155be918cbb"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d61593ac8cc558bd91c4678"), "age" : 99 }
+{ "_id" : ObjectId("5d615980c8cc558bd91c4685"), "age" : 99 }
+
+> db.foo.update({foo:'huh?'}, {$set:{age:-99}}, true)
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "foo" : "huh?", "age" : -99 }
+
+
+
+ch2-14
+> db.foo.update({foo:'bar'},{$inc:{age:3}}, false, true)
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d6155c1fefb5155be918cb6"), "f" : "b" }
+{ "_id" : ObjectId("5d6155c2fefb5155be918cb7"), "f" : "b" }
+{ "_id" : ObjectId("5d61564bfefb5155be918cb8"), "foo" : "bar", "age" : 45, "status" : null }
+{ "_id" : ObjectId("5d615651fefb5155be918cb9"), "foo" : "bar", "age" : 56 }
+{ "_id" : ObjectId("5d615654fefb5155be918cba"), "foo" : "bar", "age" : 56 }
+{ "_id" : ObjectId("5d6158b2fefb5155be918cbb"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d61593ac8cc558bd91c4678"), "age" : 99 }
+{ "_id" : ObjectId("5d615980c8cc558bd91c4685"), "age" : 99 }
+{ "_id" : ObjectId("5d6159e9c8cc558bd91c46a3"), "foo" : "huh?", "age" : -99 }
+
+> db.foo.update({foo:'bar'},{$inc:{age:3}}, {multi: true})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d6155c1fefb5155be918cb6"), "f" : "b" }
+{ "_id" : ObjectId("5d6155c2fefb5155be918cb7"), "f" : "b" }
+{ "_id" : ObjectId("5d61564bfefb5155be918cb8"), "foo" : "bar", "age" : 48, "status" : null }
+{ "_id" : ObjectId("5d615651fefb5155be918cb9"), "foo" : "bar", "age" : 59 }
+{ "_id" : ObjectId("5d615654fefb5155be918cba"), "foo" : "bar", "age" : 59 }
+{ "_id" : ObjectId("5d6158b2fefb5155be918cbb"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d61593ac8cc558bd91c4678"), "age" : 99 }
+{ "_id" : ObjectId("5d615980c8cc558bd91c4685"), "age" : 99 }
+{ "_id" : ObjectId("5d6159e9c8cc558bd91c46a3"), "foo" : "huh?", "age" : -99 }
+
+
+
+ch2-15
+> db.people.insertOne({name:'Park'})
+> db.people.updateOne({name:'Park'}, {$push:{scores:11}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ] }
+
+> db.people.updateOne({name:'Park'}, {$push:{age:{$each:[33,44,55]}}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55 ] }
+
+
+
+ch2-16
+> db.people.insert({name:'Kim', scores:10})
+WriteResult({ "nInserted" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55 ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+> db.update({name:'Kim'}, {$push:{scores:20}})
+2019-08-25T16:02:03.956+0900 E  QUERY    [js] uncaught exception: TypeError: db.update is not a function :
+@(shell):1:1
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55 ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+
+> db.people.insert({name:'Lee', scores:[10]})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55 ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6232aefefb5155be918cc1"), "name" : "Lee", "scores" : [ 10 ] }
+> db.people.update({name:'Lee'}, {$push:{scores:20}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55 ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6232aefefb5155be918cc1"), "name" : "Lee", "scores" : [ 10, 20 ] }
+
+> db.people.updateOne({name:'Park'}, {$push: {age:[33,44,55]}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6232aefefb5155be918cc1"), "name" : "Lee", "scores" : [ 10, 20 ] }
+
+
+
+
+ch2-17
+> db.people.update({name:'Lee'}, {$pop:{scores:-1}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6232aefefb5155be918cc1"), "name" : "Lee", "scores" : [ 20 ] }
+
+> db.people.update({name:'Lee'}, {$pop:{scores:-1}})
+> db.people.find()
+{ "_id" : ObjectId("5d6230cefefb5155be918cbf"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623213fefb5155be918cc0"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6232aefefb5155be918cc1"), "name" : "Lee", "scores" : [ ] }
+
+
+ch2-18
+> db.people.update({name:'Lee'}, {$set:{scores:[10,11,10,12]}})
+> db.people.find()
+{ "_id" : ObjectId("5d623608fefb5155be918cc2"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623683fefb5155be918cc3"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6236a5fefb5155be918cc4"), "name" : "Lee", "scores" : [ 10, 11, 10, 12 ] }
+
+
+> db.people.update({name:'Lee', scores:10}, {$set:{'scores.$':99}})
+> db.people.find()
+{ "_id" : ObjectId("5d623608fefb5155be918cc2"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623683fefb5155be918cc3"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6236a5fefb5155be918cc4"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+
+> db.people.insert({name:'Tom', marks:[{subject: 'English', score:90},{subject:'Math', score:100},{subject: 'Computer', score:20}]})
+> db.people.find()
+{ "_id" : ObjectId("5d623608fefb5155be918cc2"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623683fefb5155be918cc3"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6236a5fefb5155be918cc4"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+{ "_id" : ObjectId("5d6238a9fefb5155be918cc5"), "name" : "Tom", "marks" : [ { "subject" : "English", "score" : 90 }, { "subject" : "Math", "score" : 100 }, { "subject" : "Computer", "score" : 20 } ] }
+
+> db.people.update({name:'Tom', 'marks.subject':'English'}, {$set:{'marks.$.score':99}})
+> db.people.find()
+{ "_id" : ObjectId("5d623608fefb5155be918cc2"), "name" : "Park", "scores" : [ 11 ], "score" : [ 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d623683fefb5155be918cc3"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d6236a5fefb5155be918cc4"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+{ "_id" : ObjectId("5d6238a9fefb5155be918cc5"), "name" : "Tom", "marks" : [ { "subject" : "English", "score" : 99 }, { "subject" : "Math", "score" : 100 }, { "subject" : "Computer", "score" : 20 } ] }
+
+
+
+ch2-19: Exercise 1
+> db.users.insert({name:'Kim', age: 21})
+> db.users.insert({name:'Lee', age: 22})
+> db.users.insert({name:'Jung', age: 27})
+> db.users.insert({name:'Park', age:27, skills:['mongodb', 'python']})
+> db.users.insert({name:'Choi', age:22, score:10})
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d623983fefb5155be918cc8"), "name" : "Jung", "age" : 27 }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "skills" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 10 }
+
+
+> db.users.deleteOne({name:'Jung'})
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "skills" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 10 }
+
+> db.users.deleteOne({name:'Jung'})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+
+
+
+ch2-20: Exercise 2
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "skills" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 10 }
+
+> db.users.replaceOne({name:'Lee'}, {name:'Lim', age:25})
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "skills" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 10 }
+
+> db.users.find({name:'Kim'})
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 21 }
+> db.users.update({name:'Kim'}, {$set:{age:20}})
+> db.users.find({name:'Kim'})
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 20 }
+
+> db.users.find({name:'Park'})
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "skills" : [ "mongodb", "python" ] }
+> db.users.update({name:'Park'}, {$unset:{skills:1}})
+> db.users.find({name:'Park'})
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27 }
+
+> db.users.find({name:'Choi'})
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.update({name:'Choi'}, {$inc: {score:-2}})
+> db.users.find({name:'Choi'})
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 8 }
+
+
+
+
+ch2-21: Exercise 3
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 20 }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27 }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 8 }
+
+> db.users.updateMany({}, {$set:{greetings:'Hello World'}})
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 20, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lim", "age" : 25, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 8, "greetings" : "Hello World" }
+
+> db.users.updateMany({}, {$set:{greetings:'Hello Korea'}})
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.users.find()
+{ "_id" : ObjectId("5d623961fefb5155be918cc6"), "name" : "Kim", "age" : 20, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d62397afefb5155be918cc7"), "name" : "Lim", "age" : 25, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d6239cdfefb5155be918cc9"), "name" : "Park", "age" : 27, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d6239defefb5155be918cca"), "name" : "Choi", "age" : 22, "score" : 8, "greetings" : "Hello Korea" }
+
+
+
+ch2-22: Exercise 4
+
+
+
+
+
+
+
+
+
+
+> show collections
+grade
+> db.grade.find()
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de28"), "sid" : 0, "type" : "quiz", "score" : 29 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de29"), "sid" : 1, "type" : "homework", "score" : 2 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2a"), "sid" : 1, "type" : "exam", "score" : 67 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2b"), "sid" : 1, "type" : "quiz", "score" : 6 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2c"), "sid" : 2, "type" : "homework", "score" : 13 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2d"), "sid" : 2, "type" : "quiz", "score" : 91 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2e"), "sid" : 2, "type" : "exam", "score" : 76 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2f"), "sid" : 0, "type" : "homework", "score" : 69 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de30"), "sid" : 3, "type" : "quiz", "score" : 55 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de31"), "sid" : 3, "type" : "homework", "score" : 72 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de32"), "sid" : 3, "type" : "exam", "score" : 93 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de33"), "sid" : 4, "type" : "homework", "score" : 17 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de34"), "sid" : 4, "type" : "quiz", "score" : 90 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de35"), "sid" : 5, "type" : "homework", "score" : 83 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de36"), "sid" : 4, "type" : "exam", "score" : 98 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de37"), "sid" : 5, "type" : "quiz", "score" : 68 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de38"), "sid" : 6, "type" : "quiz", "score" : 88 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de39"), "sid" : 5, "type" : "exam", "score" : 98 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de3a"), "sid" : 6, "type" : "homework", "score" : 30 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de3b"), "sid" : 6, "type" : "exam", "score" : 90 }
+Type "it" for more
+
+
+
+
