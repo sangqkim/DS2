@@ -26,6 +26,7 @@ j     Jordan   19.0
 '''
 # 1-2
 print(df.iloc[:3])
+
 '''
         name  score  attempts qualify
 a  Anastasia   13.0         1     yes
