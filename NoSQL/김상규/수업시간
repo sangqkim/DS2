@@ -1,0 +1,1031 @@
+
+> db
+test
+> use mydb
+switched to db mydb
+> db.foo.insert({foo:'bar'})
+WriteResult({ "nInserted" : 1 })
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "foo" : "bar" }
+> db.foo.insert({foo:'bar'})
+WriteResult({ "nInserted" : 1 })
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "foo" : "bar" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "foo" : "bar" }
+> db.foo.replaceOne({foo:'bar'}, {f:'b'})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "foo" : "bar" }
+> db.foo.update({foo:'bar'}, {f:'b'})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+> db.foo.insert({foo:'bar', age:30})
+WriteResult({ "nInserted" : 1 })
+> db.foo.insert({foo:'bar', age:31})
+WriteResult({ "nInserted" : 1 })
+> db.foo.insert({foo:'bar', age:32})
+WriteResult({ "nInserted" : 1 })
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 30 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 32 }
+> db.foo.updateOne({foo:'bar'},{$set:{age:33}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 32 }
+> db.foo.updateMany({foo:'bar'},{$set:{age:33}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 2 }
+> db.foo.find()
+{ "_id" : ObjectId("5d5f3a8b05a3c2fd0613f81c"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3a9e05a3c2fd0613f81d"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3b4105a3c2fd0613f81e"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b4e05a3c2fd0613f81f"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3b5105a3c2fd0613f820"), "foo" : "bar", "age" : 33 }
+> db.foo.drop()
+true
+> db.foo.find()
+> db.foo.insertMany([{"_id":0}, {"_id":1},{"_id":1}, {"_id":2}])
+2019-08-23T10:10:52.673+0900 E  QUERY    [js] uncaught exception: BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 2,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: mydb.foo index: _id_ dup key: { _id: 1.0 }",
+                        "op" : {
+                                "_id" : 1
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 2,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+}) :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 2,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: mydb.foo index: _id_ dup key: { _id: 1.0 }",
+                        "op" : {
+                                "_id" : 1
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 2,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:367:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:332:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1186:23
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:314:5
+@(shell):1:1
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+> db.foo.insert({foo:'bar'})
+WriteResult({ "nInserted" : 1 })
+> db.foo.insert({foo:'bar'})
+WriteResult({ "nInserted" : 1 })
+> db.foo.replaceOne({foo:'bar'}, {f:'b'})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.update({foo:'bar'}, {f:'b'})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+> db.foo.insert({foo:'bar', age:30})
+WriteResult({ "nInserted" : 1 })
+> db.foo.insert({foo:'bar', age:31})
+WriteResult({ "nInserted" : 1 })
+> db.foo.insert({foo:'bar', age:32})
+WriteResult({ "nInserted" : 1 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 30 }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 32 }
+> db.foo.updateOne({foo:'bar'},{$set:{age:33}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find)(
+2019-08-23T10:13:44.379+0900 E  QUERY    [js] uncaught exception: SyntaxError: unexpected token: ')' :
+@(shell):1:11
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 31 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 32 }
+> db.foo.updateMany({foo:'bar'},{$set:{age:33}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 2 }
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 33 }
+> db.foo.updateOne({foo:'bar'}, {$set:{age:22}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 22 }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 33 }
+
+
+ch2-11
+> db.foo.updateOne({foo:'bar'}, {$set: {status:null}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 22, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 33 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 33 }
+
+
+> db.foo.updateMany({foo:'bar'}, {$inc: {age:10}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 32, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 43 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 43 }
+> db.foo.insert({foo:'bar', age:'unknown'})
+WriteResult({ "nInserted" : 1 })
+> db.foo.updateMany({foo:'bar'}, {$inc: {age:10}})
+2019-08-23T10:17:07.363+0900 E  QUERY    [js] WriteError({
+        "index" : 0,
+        "code" : 14,
+        "errmsg" : "Cannot apply $inc to a value of non-numeric type. {_id: ObjectId('5d5f3e8205a3c2fd0613f826')} has the field 'age' of non-numeric type string",
+        "op" : {
+                "q" : {
+                        "foo" : "bar"
+                },
+                "u" : {
+                        "$inc" : {
+                                "age" : 10
+                        }
+                },
+                "multi" : true,
+                "upsert" : false
+        }
+}) :
+WriteError({
+        "index" : 0,
+        "code" : 14,
+        "errmsg" : "Cannot apply $inc to a value of non-numeric type. {_id: ObjectId('5d5f3e8205a3c2fd0613f826')} has the field 'age' of non-numeric type string",
+        "op" : {
+                "q" : {
+                        "foo" : "bar"
+                },
+                "u" : {
+                        "$inc" : {
+                                "age" : 10
+                        }
+                },
+                "multi" : true,
+                "upsert" : false
+        }
+})
+WriteError@src/mongo/shell/bulk_api.js:458:48
+mergeBatchResults@src/mongo/shell/bulk_api.js:855:49
+executeBatch@src/mongo/shell/bulk_api.js:919:13
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1163:21
+DBCollection.prototype.updateMany@src/mongo/shell/crud_api.js:666:17
+@(shell):1:1
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+> show dbs
+admin   0.000GB
+config  0.000GB
+local   0.000GB
+mydb    0.000GB
+> db.foo.update({foo:'huh?'}, {age:99})
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+> db.foo.update({foo:'huh?'}, {age:99},ture)
+2019-08-23T10:30:57.145+0900 E  QUERY    [js] uncaught exception: ReferenceError: ture is not defined :
+@(shell):1:30
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+> db.foo.update({foo:'huh?'}, {age:99},true)
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("5d5f41e2de84349d1317f46a")
+})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+> db.foo.update({foo:'huh?'}, {age:99},{upsert:true})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("5d5f41ffde84349d1317f475")
+})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+> db.foo.update({foo:'huh?'}, {$set:{age:99}})
+WriteResult({ "nMatched" : 0, "nUpserted" : 0, "nModified" : 0 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+> db.foo.update({foo:'huh?'}, {$set:{age:99}},true)
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 1,
+        "nModified" : 0,
+        "_id" : ObjectId("5d5f422fde84349d1317f485")
+})
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "foo" : "huh?", "age" : 99 }
+> db.foo.update({foo:'huh?'}, {$set:{age:-99}},true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f41e2de84349d1317f46a"), "age" : 99 }
+{ "_id" : ObjectId("5d5f41ffde84349d1317f475"), "age" : 99 }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "foo" : "huh?", "age" : -99 }
+> db.foo.remove({age:99})
+WriteResult({ "nRemoved" : 2 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "foo" : "huh?", "age" : -99 }
+> db.foo.update({foo:'huh?'}, {age:99},true)
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "age" : 99 }
+> db.people.insertOne(name:'Park'})
+2019-08-23T10:44:36.804+0900 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:24
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "age" : 99 }
+> db.people.find()
+> use people
+switched to db people
+> db.people.insertOne(name:'Park'})
+2019-08-23T10:45:17.448+0900 E  QUERY    [js] uncaught exception: SyntaxError: missing ) after argument list :
+@(shell):1:24
+> db.people.insertOne({name:'Park'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5d5f453b05a3c2fd0613f827")
+}
+> use people
+switched to db people
+> use db
+switched to db db
+> db.people.insertOne({name:'Park'})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("5d5f455805a3c2fd0613f828")
+}
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park" }
+> db.people.updateOne({name:'Park'}, {$push:{scores:11}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11 ] }
+> db.people.updateOne({name:'Park'}, {$push:{scores:22}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ] }
+> db.people.updateOne({name:'Park'}, {$push:{age: {$each: [33,44,55]}}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55 ] }
+> db.people.updateOne({name:'Park'}, {$push:{age: [33,44,55]}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+> db.people.insert({name:'Kim', scores:10})
+WriteResult({ "nInserted" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+> db.people.insert({name:'Kim'}, {$push: {scores:20}})
+WriteResult({ "nInserted" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+> db.people.update({name:'Kim'}, {$push: {scores:20}})
+WriteResult({
+        "nMatched" : 0,
+        "nUpserted" : 0,
+        "nModified" : 0,
+        "writeError" : {
+                "code" : 2,
+                "errmsg" : "The field 'scores' must be an array but is of type double in document {_id: ObjectId('5d5f469405a3c2fd0613f829')}"
+        }
+})
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+> db.people.update({name:'Lee'}, scores:[10]})
+2019-08-23T10:53:58.612+0900 E  QUERY    [js] SyntaxError: missing ) after argument list :
+@(shell):1:37
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+> db.people.insert({name:'Lee'}, scores:[10]})
+2019-08-23T10:54:13.148+0900 E  QUERY    [js] SyntaxError: missing ) after argument list :
+@(shell):1:37
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+> db.people.insert({name:'Lee', scores:[10]})
+WriteResult({ "nInserted" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10 ] }
+> db.people.update({name:'Lee'}, {$push: {scores:[20]}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Lee'}, {$pop:{score:-1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Lee'}, {$pop:{score:-1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Lee'}, {$pull: {age:10}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 33, 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Park'}, {$pull: {age:33}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Park'}, {$pull: {age:33}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Park'}, {$pull: {age:[33]}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, [ 20 ] ] }
+> db.people.update({name:'Lee'}, {$set: {scores:[10,11,10,12]}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 10, 11, 10, 12 ] }
+> db.people.update({name:'Lee', scores:10}, {$set: {'scores.$':99}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+> db.users.insert({name:'Kim', age:21})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({name:Lee', age:22})
+2019-08-23T11:13:20.399+0900 E  QUERY    [js] SyntaxError: '' literal not terminated before end of script :
+@(shell):1:36
+> db.users.insert({name:'Lee', age:22})
+WriteResult({ "nInserted" : 1 })
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4bb405a3c2fd0613f82c"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4bcd05a3c2fd0613f82d"), "name" : "Lee", "age" : 22 }
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+> db.users.find()
+{ "_id" : ObjectId("5d5f4bb405a3c2fd0613f82c"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4bcd05a3c2fd0613f82d"), "name" : "Lee", "age" : 22 }
+> use users
+switched to db users
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+> db.users.find()
+> db.users.insert({name:'Kim', age:21})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({name:'Lee', age:22})
+WriteResult({ "nInserted" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lee", "age" : 22 }
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+users   0.000GB
+> db.users.insert({name:'Jung', age:27})
+WriteResult({ "nInserted" : 1 })
+> db.users.insert({name:'Park', age:27, skill: ['mongodb', 'python']})
+WriteResult({ "nInserted" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d5f4c9f05a3c2fd0613f830"), "name" : "Jung", "age" : 27 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+> db.users.insert({name:'Choi', age:22, score:10})
+WriteResult({ "nInserted" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d5f4c9f05a3c2fd0613f830"), "name" : "Jung", "age" : 27 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.deleteOne({name:'Jung'})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lee", "age" : 22 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.replaceOne({name:'Lee', {name:'Lim', age:25})
+... }
+2019-08-23T11:20:02.892+0900 E  QUERY    [js] SyntaxError: expected property name, got '{' :
+@(shell):1:33
+> db.users.replaceOne({name:'Lee'}, {name:'Lim', age:25})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 21 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.update({name:'Kim'}, {$set: {age:20}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.update({name:'Park'}, {$unset: {skills:1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 0 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "skill" : [ "mongodb", "python" ] }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.update({name:'Park'}, {$unset: {skill:1}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27 }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 10 }
+> db.users.update({name:'Choi'}, {$inc:{score:-2}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20 }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25 }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27 }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 8 }
+> db.users.updateMany({}, {$set:{greetings:'Hello World'}})
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "greetings" : "Hello World" }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 8, "greetings" : "Hello World" }
+>
+> db.users.updateMany({}, {$set:{greetings:'Hello Korea'}})
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 4 }
+> db.users.find()
+{ "_id" : ObjectId("5d5f4c6b05a3c2fd0613f82e"), "name" : "Kim", "age" : 20, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d5f4c7005a3c2fd0613f82f"), "name" : "Lim", "age" : 25, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d5f4cc505a3c2fd0613f831"), "name" : "Park", "age" : 27, "greetings" : "Hello Korea" }
+{ "_id" : ObjectId("5d5f4ce205a3c2fd0613f832"), "name" : "Choi", "age" : 22, "score" : 8, "greetings" : "Hello Korea" }
+> exit
+bye
+
+C:\Users\DS>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS 디렉터리
+
+[.]                             [..]                            [.anaconda]                     [.conda]                        .condarc
+.dbshell                        .gitconfig                      [.idlerc]                       [.ipynb_checkpoints]            [.ipython]
+[.jupyter]                      [.keras]                        [.matplotlib]                   .mongorc.js                     [.spyder-py3]
+[.spyder-py3-dev]               1907011.ipynb                   [3D Objects]                    [Anaconda3]                     [Contacts]
+delete.ipynb                    [Desktop]                       [Documents]                     [Downloads]                     [DS2]
+[ds2rdb]                        [Favorites]                     Linear Algebra_practice.ipynb   [Links]                         [Music]
+[OneDrive]                      OOP_practice.ipynb              [Pictures]                      [Saved Games]                   [scikit_learn_data]
+[seaborn-data]                  [Searches]                      [spyder]                        [Videos]
+               8개 파일              70,529 바이트
+              31개 디렉터리  172,710,105,088 바이트 남음
+
+C:\Users\DS>cd OneDrive
+
+C:\Users\DS\OneDrive>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive 디렉터리
+
+[.]         [..]        [DS2]       [문서]      [첨부 파일]
+               0개 파일                   0 바이트
+               5개 디렉터리  172,710,105,088 바이트 남음
+
+C:\Users\DS\OneDrive>cd DS2
+
+C:\Users\DS\OneDrive\DS2>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive\DS2 디렉터리
+
+[.]                        [..]                       [[1학기] 1_Python I]       [[1학기] 2_Linear Algebra] [[1학기] 3_Database]       [[1학기] 4_Python II]      [[1학기] 5_Statistics]
+[[2학기] 6_NoSQL]          [[2학기] 7_Data Mining]
+               0개 파일                   0 바이트
+               9개 디렉터리  172,710,105,088 바이트 남음
+
+C:\Users\DS\OneDrive\DS2>cd. [1학기] 6_NoSQL
+지정된 경로를 찾을 수 없습니다.
+
+C:\Users\DS\OneDrive\DS2>cd.. [1학기] 6_NoSQL
+지정된 경로를 찾을 수 없습니다.
+
+C:\Users\DS\OneDrive\DS2>cd [1학기] 6_NoSQL
+지정된 경로를 찾을 수 없습니다.
+
+C:\Users\DS\OneDrive\DS2>cd [2학기] 6_NoSQL
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL 디렉터리
+
+[.]          [..]         [1_강의자료] [2_실습]     [3_Homework]
+               0개 파일                   0 바이트
+               5개 디렉터리  172,710,096,896 바이트 남음
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL>cd 2_실습
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습>dirw/
+'dirw'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습 디렉터리
+
+[.]                                    [..]                                   [dataset]                              mongodb-compass-1.19.6-win32-x64.msi
+nosql_lab01.pdf                        [problem_code]
+               2개 파일         144,953,574 바이트
+               4개 디렉터리  172,710,121,472 바이트 남음
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습>cd dataset
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset 디렉터리
+
+[.]               [..]              [datasets-master]
+               0개 파일                   0 바이트
+               3개 디렉터리  172,710,109,184 바이트 남음
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset>cd datasets-master
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>dis/w
+'dis'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>dirw/
+'dirw'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>dir/w
+ C 드라이브의 볼륨에는 이름이 없습니다.
+ 볼륨 일련 번호: A4FB-F9BC
+
+ C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master 디렉터리
+
+[.]                   [..]                  airports.json         apples.json           blog.json             companies.json        enron.json            grade.json
+imdb.json             inventory.json        metro.json            neighborhoods.json    people.json           pokedex.json          primer-dataset.json   restaurants.json
+sales.json            shelter.json          small_zips.json       states.json           store.json
+              19개 파일         157,100,641 바이트
+               2개 디렉터리  172,710,109,184 바이트 남음
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>mongoimport grade.json
+2019-08-23T11:31:03.664+0900    no collection specified
+2019-08-23T11:31:03.837+0900    using filename 'grade' as collection
+2019-08-23T11:31:04.466+0900    connected to: mongodb://localhost/
+2019-08-23T11:31:04.499+0900    299 document(s) imported successfully. 0 document(s) failed to import.
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>mongo
+MongoDB shell version v4.2.0
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("ed75de4c-6a4e-49e5-8476-8ed71031de58") }
+MongoDB server version: 4.2.0
+Server has startup warnings:
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten]
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> use mydb
+switched to db mydb
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+test    0.000GB
+users   0.000GB
+> show collections
+foo
+> db.grade.find()
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+test    0.000GB
+users   0.000GB
+> exit
+bye
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>mongoimport /db:mydb/collections:users grade.json
+2019-08-23T11:32:54.935+0900    error validating settings: invalid database name: illegal character '/' found in db name 'mydb/collections:users'
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>mongoimport /db:mydb/collections:users \grade.json
+2019-08-23T11:33:22.504+0900    error validating settings: invalid database name: illegal character '/' found in db name 'mydb/collections:users'
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>show dbs
+'show'은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+
+C:\Users\DS\OneDrive\DS2\[2학기] 6_NoSQL\2_실습\dataset\datasets-master>mongo
+MongoDB shell version v4.2.0
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("5fdbeda4-c7a0-4bfb-84ed-146594f61e28") }
+MongoDB server version: 4.2.0
+Server has startup warnings:
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten]
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2019-08-22T11:37:03.737+0900 I  CONTROL  [initandlisten]
+---
+Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+and anyone you share the URL with. MongoDB may use this information to make product
+improvements and to suggest MongoDB products and deployment options to you.
+
+To enable free monitoring, run the following command: db.enableFreeMonitoring()
+To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+test    0.000GB
+users   0.000GB
+> use test
+switched to db test
+> db
+test
+> show collections
+grade
+> db.grade.find()
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de28"), "sid" : 0, "type" : "quiz", "score" : 29 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de29"), "sid" : 1, "type" : "homework", "score" : 2 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2a"), "sid" : 1, "type" : "exam", "score" : 67 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2b"), "sid" : 1, "type" : "quiz", "score" : 6 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2c"), "sid" : 2, "type" : "homework", "score" : 13 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2d"), "sid" : 2, "type" : "quiz", "score" : 91 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2e"), "sid" : 2, "type" : "exam", "score" : 76 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de2f"), "sid" : 0, "type" : "homework", "score" : 69 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de30"), "sid" : 3, "type" : "quiz", "score" : 55 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de31"), "sid" : 3, "type" : "homework", "score" : 72 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de32"), "sid" : 3, "type" : "exam", "score" : 93 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de33"), "sid" : 4, "type" : "homework", "score" : 17 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de34"), "sid" : 4, "type" : "quiz", "score" : 90 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de35"), "sid" : 5, "type" : "homework", "score" : 83 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de36"), "sid" : 4, "type" : "exam", "score" : 98 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de37"), "sid" : 5, "type" : "quiz", "score" : 68 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de38"), "sid" : 6, "type" : "quiz", "score" : 88 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de39"), "sid" : 5, "type" : "exam", "score" : 98 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de3a"), "sid" : 6, "type" : "homework", "score" : 30 }
+{ "_id" : ObjectId("5d5f4fe8dae8ae477c23de3b"), "sid" : 6, "type" : "exam", "score" : 90 }
+Type "it" for more
+> use users
+switched to db users
+> db
+users
+> show collections
+users
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+lab2    0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+test    0.000GB
+users   0.000GB
+> db
+users
+> show collections
+users
+> use test
+switched to db test
+> db
+test
+> show collections
+grade
+> db
+test
+> db.dropDatabase()
+{ "dropped" : "test", "ok" : 1 }
+> db
+test
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+lab2    0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+users   0.000GB
+> db
+test
+> use db
+switched to db db
+> show collections
+people
+users
+> use mydb
+switched to db mydb
+> show collections
+foo
+> db.foo.find()
+{ "_id" : 0 }
+{ "_id" : 1 }
+{ "_id" : ObjectId("5d5f3d4d05a3c2fd0613f821"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3d5105a3c2fd0613f822"), "f" : "b" }
+{ "_id" : ObjectId("5d5f3da305a3c2fd0613f823"), "foo" : "bar", "age" : 42, "status" : null }
+{ "_id" : ObjectId("5d5f3da905a3c2fd0613f824"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3daf05a3c2fd0613f825"), "foo" : "bar", "age" : 53 }
+{ "_id" : ObjectId("5d5f3e8205a3c2fd0613f826"), "foo" : "bar", "age" : "unknown" }
+{ "_id" : ObjectId("5d5f422fde84349d1317f485"), "age" : 99 }
+> use mydb
+switched to db mydb
+> show collections
+foo
+> use db
+switched to db db
+> show collections
+people
+users
+> df.people.find()
+2019-08-23T12:07:10.115+0900 E  QUERY    [js] uncaught exception: ReferenceError: df is not defined :
+@(shell):1:1
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+> mydb.people.find()
+2019-08-23T12:07:25.369+0900 E  QUERY    [js] uncaught exception: ReferenceError: mydb is not defined :
+@(shell):1:1
+> db.people.find()
+{ "_id" : ObjectId("5d5f455805a3c2fd0613f828"), "name" : "Park", "scores" : [ 11, 22 ], "age" : [ 44, 55, [ 33, 44, 55 ] ] }
+{ "_id" : ObjectId("5d5f469405a3c2fd0613f829"), "name" : "Kim", "scores" : 10 }
+{ "_id" : ObjectId("5d5f46c305a3c2fd0613f82a"), "name" : "Kim" }
+{ "_id" : ObjectId("5d5f475b05a3c2fd0613f82b"), "name" : "Lee", "scores" : [ 99, 11, 10, 12 ] }
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+lab2    0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+users   0.000GB
+> use lab2
+switched to db lab2
+> db.dropDatabase()
+{ "dropped" : "lab2", "ok" : 1 }
+> show dbs
+admin   0.000GB
+config  0.000GB
+db      0.000GB
+local   0.000GB
+mydb    0.000GB
+people  0.000GB
+users   0.000GB
+>
+
