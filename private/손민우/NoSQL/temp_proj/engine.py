@@ -51,6 +51,7 @@ if lsort:
     query.append(sort)
 
 result = enron.aggregate(query)
+
 print('sender\t\t\tsubject\t\t\ttext\t\t\t\t\tdate')
 for item in result:
     print('{}\t{}\t{}\t{}'.format(
