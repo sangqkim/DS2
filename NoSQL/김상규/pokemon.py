@@ -1,8 +1,8 @@
 import sys
 import re
-from pymongo import MongoClient
+from pymongo import MongoClient # pymongo를 통해 database 연결
 from pprint import pprint
-import os
+import os # python 상에서 data import
 
 # client.drop_database(name_or_database='ds2') # 기존에 있는 ds2 database 없애기
 # db.drop_collection(name_or_collection='pokedex')
@@ -10,9 +10,9 @@ import os
 # client.list_database_names() # database list 보기
 # db.list_collection_names() # database에 있는 collection list 보기
 
-client = MongoClient('127.0.0.1')
-db = client.ds2
-pokedex = db.pokedex
+#client = MongoClient('127.0.0.1')
+#db = client.ds2
+#pokedex = db.pokedex
     
 
 def problem_1(pokedex):
@@ -23,19 +23,19 @@ def problem_1(pokedex):
     # Problem A
     
     # 약점 찾기
-    # 오바람이 가지고 있는 3가지 포켓몬의 약점 찾기
+    # 오바람이 가지고 있는 3가지 포켓몬의 정보 찾기
     weaknesses = pokedex.find({'name': {'$in': wind_pokemon}}, 
                              {'id':1, 'name':1, 'spawn_time':1, 'type':1, 'weaknesses':1, '_id':0}).sort([('name', 1)])
     for item in weaknesses:
-        wind_weak.append(item['weaknesses']) #   
-    temp = wind_weak[0]
+        wind_weak.append(item['weaknesses']) # 각 포켓몬의 약점을 리스트로 받음
+    temp = wind_weak[0] # 첫 번째 포켓몬의 약점
     for i in range(1, len(wind_weak)):
-        temp = set(temp)&set(wind_weak[i]) # 공통 약점
-    wind_weak = list(temp)
+        temp = set(temp)&set(wind_weak[i]) # 모든 포켓몬이 가지고 있는 공통 약점 추출
+    wind_weak = list(temp) # 최종 결과를 list로 변환
     
     
-    strong = pokedex.find({'weaknesses': {'$in': wind_weak},  # 공통 약점
-                                          'spawn_time': {'$gte': '20:00', '$lte': '24:00'}}, # 출몰 시간
+    strong = pokedex.find({'$and': [{'type': {'$in': wind_weak}},  # 공통 약점
+                                          {'spawn_time': {'$gte': '20:00', '$lte': '24:00'}}]}, # 출몰 시간
     {'id':1, 'name':1, 'spawn_time':1, 'type':1, '_id':0}).sort([('name', 1)])
 
     for item in strong:
@@ -48,21 +48,20 @@ def problem_1(pokedex):
 def problem_2(pokedex):
     # TODO:
     # Problem B
-    final_pokemons = pokedex.find({'next_evolution': {'$exists': False}, 
-                                   'candy_count': {'$exists': False}, 
-                                   'candy':{'$ne': 'None'}},
-        {'_id':0, 'id':1, 'name':1, 'prev_evolution':1, 'candy':1}).sort([('id', 1)])
+    # 최종 진화 포켓몬 찾기
+    final_pokemons = pokedex.find({'next_evolution':{'$exists':False},                                    
+                                   'prev_evolution':{'$exists':True}}).sort([('id', 1)])
 
     for pokemon in final_pokemons:
         candy, count = "", 0
         
         # TODO:
-        n_prev = len(pokemon['prev_evolution'])
+        n_prev = len(pokemon['prev_evolution']) # 최종진화 포켓몬의 전단계 수
         for i in range(n_prev):
-            pokemon_num = pokemon['prev_evolution'][i]['num']
-            prev_pokemon = pokedex.find({'num': pokemon_num}, {'_id':0, 'candy_count':1})        
+            pokemon_num = pokemon['prev_evolution'][i]['num'] # 전단계 포켓몬 num
+            prev_pokemon = pokedex.find({'num': pokemon_num}, {'_id':0, 'candy_count':1}) # 해당 포켓몬 db     
             for i in prev_pokemon:
-                count = count+i['candy_count']
+                count = count+i['candy_count'] # 진화를 위한 candy 수 합계
 
         print(pokemon['name'], end=' => ')
         print('{}: {} '.format(candy.encode('ascii', 'ignore').decode('ascii'), count))
@@ -89,6 +88,16 @@ if __name__ == '__main__':
 
 problem_1(pokedex)
 problem_2(pokedex)
+
+
+
+
+
+
+
+
+
+
 
 
 
