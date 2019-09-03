@@ -47,9 +47,9 @@ def letter(col):
 def perfect(col, db):
 
     # problem C
-    check = db.list_collection_names()
-    if 'relative' in check:
-        db.drop_collection('relative')
+    # check = db.list_collection_names()
+    # if 'relative' in check:
+    #     db.drop_collection('relative')
     col2 = db.relative
     lst = []
     for i in range(100):
