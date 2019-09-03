@@ -47,20 +47,20 @@ def letter(col):
 def perfect(col, db):
 
     # problem C
-    # check = db.list_collection_names()
-    # if 'relative' in check:
-    #     db.drop_collection('relative')
+    check = db.list_collection_names()
+    if 'relative' in check:
+        db.drop_collection('relative')
     col2 = db.relative
     lst = []
     for i in range(100):
         flag = False
-        each = col.find_one({'sid': i, 'grades.type': 'quiz'}, {'grades.$': 1, '_id': 0})
+        each = col.find_one({'sid': i, 'grades.type': 'quiz'}, {'grades.$': 1, '_id': 0, 'note':1})
         quiz_score = each['grades'][0]['score']
         r_quiz_score = quiz_score * 0.2
-        each = col.find_one({'sid': i, 'grades.type': 'homework'}, {'grades.$': 1, '_id': 0})
+        each = col.find_one({'sid': i, 'grades.type': 'homework'}, {'grades.$': 1, '_id': 0, 'note':1})
         hw_score = each['grades'][0]['score']
         r_hw_score = hw_score * 0.3
-        each = col.find_one({'sid': i, 'grades.type': 'exam'}, {'grades.$': 1, '_id': 0})
+        each = col.find_one({'sid': i, 'grades.type': 'exam'}, {'grades.$': 1, '_id': 0, 'note':1})
         exam_score = each['grades'][0]['score']
         r_exam_score = exam_score * 0.5
 
@@ -112,6 +112,7 @@ if __name__ == "__main__":
     # raw_input = sys.argv[1]
     # TODO:
     col = db.grades
+    # letter(col)
     perfect(col, db)
     # if raw_input == 'A':
     #     pagination(col)
