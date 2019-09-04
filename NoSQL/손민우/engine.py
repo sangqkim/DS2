@@ -45,6 +45,9 @@ if lsort:
         sort = {'$sort': {'score': {'$meta': 'textScore'}}}
     elif lsort == 'date':
         sort = {'$sort': {'date': -1}}
+    else:
+        print('You can sort by only date or score')
+        raise(AssertionError)
     query.append(sort)
 
 enron.create_index([('subject',TEXT), ('text', TEXT)], weights = {'subject':2, 'text':1})
