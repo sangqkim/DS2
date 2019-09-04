@@ -106,7 +106,6 @@ def perfect():
             print('{}:{}'.format(k, v), end=', ')
         print('\b\b }')
 
-
 if __name__ == "__main__":
     client = MongoClient()
     db = client.ds2
@@ -115,12 +114,12 @@ if __name__ == "__main__":
     raw_input = sys.argv[1]
 
     try:
-        if raw_input == 'A':
-            page = sys.argv[2]
+        if raw_input == '1':
+            page = int(sys.argv[2])
             pagination(page)
-        elif raw_input == 'B':
+        elif raw_input == '2':
             letter()
-        elif raw_input == 'C':
+        elif raw_input == '3':
             perfect()
     except:
         print("ERROR")
