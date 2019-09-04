@@ -111,15 +111,15 @@ if __name__ == "__main__":
     db = client.ds2
     grades = db.grades
 
-    num = int(sys.argv[1])
+    raw_input = sys.argv[1]
 
     try:
-        if num == 1:
+        if raw_input == '1':
             page = int(sys.argv[2])
             pagination(page)
-        elif num == 2:
+        elif raw_input == '2':
             letter()
-        elif num == 3:
+        elif raw_input == '3':
             perfect()
     except:
         print("ERROR")
