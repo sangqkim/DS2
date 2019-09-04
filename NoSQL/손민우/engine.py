@@ -6,25 +6,22 @@ client = MongoClient()
 db = client.ds2
 enron = db.emails
 
-# raw_input = sys.argv[1]
-raw_input = "Social / not: Network / sort: date"
-# raw_input = "from: robyn@layfam.com"
-# raw_input = "to: cindy.olson@enron.com, greg.whalley@enron.com / Please / not: Attached, previously"
+raw_input = sys.argv[1]
 # fill in the blank
-enron.create_index([('subject',TEXT), ('text', TEXT)], weights = {'subject':2, 'text':1})
+
 s = raw_input.split('/')
-lnot, lfrom, lto, lsearch, lsort = [], [], [], [], []
+lnot, lto, lsearch, lsort, lfrom = [], [], [], '', ''
 
 for i in s:
     cmd = i.replace(" ", "").split(':')
     if cmd[0] == 'not':
         lnot.extend(cmd[1].split(','))
     elif cmd[0] == 'from':
-        lfrom.append(cmd[1])
+        lfrom = cmd[1]
     elif cmd[0] == 'to':
         lto.extend(cmd[1].split(','))
     elif cmd[0] == 'sort':
-        lsort.append(cmd[1])
+        lsort = cmd[1]
     else:
         lsearch.extend(cmd[0].split(','))
 
@@ -41,15 +38,16 @@ if lto:
     to = {'$match': {'to': {'$in': lto}}}
     query.append(to)
 if lfrom:
-    sender = {'$match': {'sender': lfrom[0]}}
+    sender = {'$match': {'sender': lfrom}}
     query.append(sender)
 if lsort:
-    if lsort[0] == 'score':
+    if lsort == 'score':
         sort = {'$sort': {'score': {'$meta': 'textScore'}}}
-    elif lsort[0] == 'date':
+    elif lsort == 'date':
         sort = {'$sort': {'date': -1}}
     query.append(sort)
 
+enron.create_index([('subject',TEXT), ('text', TEXT)], weights = {'subject':2, 'text':1})
 result = enron.aggregate(query)
 
 print('sender\t\t\tsubject\t\t\ttext\t\t\t\t\tdate')
