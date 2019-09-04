@@ -3,7 +3,7 @@ import sys
 
 def pagination(col):
     # problem A
-    result = col.find({},{'sid':1, 'grades':1}).sort([('sid', 1)]).limit(10)
+    result = col.find({},{'_id':0, 'grades':1, 'sid':1}).sort([('sid', 1)]).skip(10).limit(10)
     for item in result:
         print('{ ', end='')
         for (k, v) in sorted(item.items()):
