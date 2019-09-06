@@ -6,8 +6,7 @@ client = MongoClient()
 db = client.ds2
 enron = db.emails
 
-# raw_input = sys.argv[1]
-raw_input = 'social'
+raw_input = sys.argv[1]
 # fill in the blank
 
 s = raw_input.split('/')
