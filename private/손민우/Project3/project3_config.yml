@@ -1,0 +1,32 @@
+authorName: dsteam11  # your name
+experimentName: exercise  # experiment name
+maxExecDuration: 3h
+maxTrialNum: 50
+
+localConfig:
+    gpuIndices: 2,3  # todo
+
+searchSpacePath: /home/ds/dsteam11/Project3/project/search_space.json  # TODO: your search space json
+
+tuner:
+  #choice: TPE, Random, Anneal, Evolution
+  builtinTunerName: TPE
+  classArgs:
+    #choice: maximize, minimize
+    optimize_mode: maximize
+assessor:
+    builtinAssessorName: Medianstop
+    classArgs:
+      optimize_mode: maximize
+      start_step: 5
+
+trial:
+  command: python project3_nni.py
+  codeDir: /home/ds/dsteam11/Project3/project # TODO: your team's example
+  gpuNum: 1 # gpu 갯수
+
+
+# do not change below
+trainingServicePlatform: local
+useAnnotation: false
+trialConcurrency: 2
